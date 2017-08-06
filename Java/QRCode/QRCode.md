@@ -1,7 +1,7 @@
 # [王孝东的个人空间](https://scm-git.github.io/)
 ## QRCodeUtil
   ```java
-  package com.hpe.wephoto.common.utils;
+package com.hpe.wephoto.common.utils;
 
 import com.google.zxing.*;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
