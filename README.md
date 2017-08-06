@@ -2,10 +2,9 @@
 
 ## AWS
 ## Database
-## DevOps
 ## ELK
-## GitHub
-## IDEA
+## Git & GitHub
+## IDE
 ## Java
 ## Javascript
 ## Jenkins
@@ -13,9 +12,8 @@
 ## Maven
 ## MyBatis
 ## Nginx
-## Nodejs
+## Node.js
 ## Spring
-## Spring Boot/Spring Cloud
 ## WebSocket
 
 ## Windows 10
