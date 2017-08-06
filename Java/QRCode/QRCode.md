@@ -1,6 +1,7 @@
 # [王孝东的个人空间](https://scm-git.github.io/)
 ## QRCodeUtil
   ```
+  
 package com.hpe.wephoto.common.utils;
 
 import com.google.zxing.*;
