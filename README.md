@@ -5,7 +5,7 @@
 ## ELK
 ## Git & GitHub
 ## IDE
-## [Java](./java/java.md)
+## [Java](./Java/java.md)
 ## Javascript
 ## Jenkins
 ## Linux
