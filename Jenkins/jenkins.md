@@ -1,4 +1,4 @@
-﻿# [王孝东的个人空间](https://scm-git.github.io/)
+# [王孝东的个人空间](https://scm-git.github.io/)
 ## [Jenkins](https://jenkins.io)
 ### 1. 安装
 官网安装说明：
