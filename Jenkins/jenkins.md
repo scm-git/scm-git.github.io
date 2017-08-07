@@ -6,7 +6,7 @@
 * [Red Hat/CentOS/Fedora](https://pkg.jenkins.io/redhat-stable/)  
 安装步骤:
 1. 查看系统版本：`cat /etc/*-release`
-  ```
+```
   $ cat /etc/*-release
   CentOS Linux release 7.1.1503 (Core)
   NAME="CentOS Linux"
@@ -27,7 +27,7 @@
 
   CentOS Linux release 7.1.1503 (Core)
   CentOS Linux release 7.1.1503 (Core)
-  ```
+```
 2. 系统版本为CentOS，则安装CentOS的方式安装，依次执行以下命令：
 ```
 $ sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo
