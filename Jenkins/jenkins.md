@@ -1,9 +1,9 @@
-# [王孝东的个人空间](https://scm-git.github.io/)
+﻿# [王孝东的个人空间](https://scm-git.github.io/)
 ## [Jenkins](https://jenkins.io)
 ### 1. 安装
 官网安装说明：
 * [Ubuntu/Debian](https://pkg.jenkins.io/debian-stable/)
-* [Red Hat/CentOS/Fedora](https://pkg.jenkins.io/redhat-stable/)
+* [Red Hat/CentOS/Fedora](https://pkg.jenkins.io/redhat-stable/)  
 安装步骤:
 1. 查看系统版本：`cat /etc/*-release`
   ```
