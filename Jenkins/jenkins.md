@@ -1,10 +1,11 @@
-﻿## [Jenkins](https://jenkins.io)
+﻿# [王孝东的个人空间](https://scm-git.github.io/)
+## [Jenkins](https://jenkins.io)
 ### 1. 安装
 官网安装说明：
 * [Ubuntu/Debian](https://pkg.jenkins.io/debian-stable/)
 * [Red Hat/CentOS/Fedora](https://pkg.jenkins.io/redhat-stable/)  
 安装步骤:
-1. 查看系统版本：`cat /etc/*-release`
+1. 查看系统版本：`cat /etc/*-release`,执行结果如下：  
 ```
   $ cat /etc/*-release
   CentOS Linux release 7.1.1503 (Core)
@@ -40,21 +41,21 @@ $ sudo service jenkins start/stop/restart
 
 ### 2. 配置Jenkins
 1. 在浏览器中访问Jenkins: http://ip:8080  
-ip: 主机IP
-8080：默认端口是8080， 如果启动的时候出现错误，可能是8080端口被占用，可以设置其他端口号；  
-第一次登录的时候需要输入初始密码：按照页面中的提示，直接获取即可  
-![Unlock Jenkins](jenkins1.png)
+  ip: 主机IP
+  8080：默认端口是8080， 如果启动的时候出现错误，可能是8080端口被占用，可以设置其他端口号；  
+  第一次登录的时候需要输入初始密码：按照页面中的提示，直接获取即可  
+  ![Unlock Jenkins](jenkins1.png)
 2. 输入后即可进入主页面，首先会让你选择安装插件：如果不熟悉相关插件，则直接选择推荐的插件，如果后续需要其他插件，可以再继续安装，安装过程：  
-![Plugin](Jenkins2.png)
-**Note: 如果jenkins是配置在公司内网，可能需要配置网络代理**
+  ![Plugin](Jenkins2.png)
+  **Note: 如果jenkins是配置在公司内网，可能需要配置网络代理**
 3. 插件安装完成后，jenkins会自动跳转到主页面，然后配置全局tools: Manage Jenkins -> Global Tool Configuration  
-![Configure Jenkins](Jenkins3.png)
-主要配置JDK和Maven，如果需要其他工具，配置方式也是相似的：  
-![Configure JDK&Maven](Jenkins4.png)
-Name可以自己任意命名，JAVA_HOME和MAVEN_HOME则根据自己主机的路径配置，例如我们的路径分别为：/usr/java/jdk1.8.0_111 和 /usr/lib/apache-maven-3.3.9  
+  ![Configure Jenkins](Jenkins3.png)
+  主要配置JDK和Maven，如果需要其他工具，配置方式也是相似的：  
+  ![Configure JDK&Maven](Jenkins4.png)
+  Name可以自己任意命名，JAVA_HOME和MAVEN_HOME则根据自己主机的路径配置，例如我们的路径分别为：/usr/java/jdk1.8.0_111 和 /usr/lib/apache-maven-3.3.9  
 4. 插件管理：Manage Jenkins -> Manage Plugins  
-   Jenkins提供了太多的插件，具体需要用到哪些插件需要根据项目的情况而定，通常情况下，安装了Jenkins推荐的插件就基本够用了。最近我们的项目使用了AWS的Beanstalk服务，所以自己手动添加Beanstalk相关插件：
-   ![Beanstalk Plugin](Jenkins5.png)
+  Jenkins提供了太多的插件，具体需要用到哪些插件需要根据项目的情况而定，通常情况下，安装了Jenkins推荐的插件就基本够用了。最近我们的项目使用了AWS的Beanstalk服务，所以自己手动添加Beanstalk相关插件：
+  ![Beanstalk Plugin](Jenkins5.png)
 ### 3. Jenkins Pipeline
 目前Jenkins更推荐使用pipeline来配置Jenkins任务，主要有如下好处：
 * Jenkins Pipeline使用代码描述Jenkins任务，通常可以将其写入Jenkinsfile并且保存到版本库中，可以很容易的跟踪Pipeline任务的修改情况；一个Jenkinsfile就是一个Jenkins任务，放入版本库也变相的备份了Jenkins任务
