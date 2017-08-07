@@ -59,7 +59,8 @@ $ sudo service jenkins start/stop/restart
 * Jenkins Pipeline使用代码描述Jenkins任务，通常可以将其写入Jenkinsfile并且保存到版本库中，可以很容易的跟踪Pipeline任务的修改情况；一个Jenkinsfile就是一个Jenkins任务，放入版本库也变相的备份了Jenkins任务
 * 创建Jenkins任务更加容易，只需要从版本库中拉取一个Jenkinsfile即可完成
 * Jenkins官方提供了Blue Ocean插件，便于查看Pipeline中每个Stage的执行情况  
-### 4. Jenkins Pipeline代码示例：  
+
+Jenkins Pipeline代码示例：  
 ```
 //=====================Requirement for this pipeline script=============================
 // 1. Install docker on Jenkins master or node
