@@ -7,7 +7,7 @@
 安装步骤:
 1. 查看系统版本,执行结果如下:
   ```
-  [jek@localhost ~]$ cat /etc/*-release
+  $ cat /etc/*-release
   CentOS Linux release 7.1.1503 (Core) 
   NAME="CentOS Linux"
   VERSION="7 (Core)"
