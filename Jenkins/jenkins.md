@@ -1,5 +1,4 @@
-﻿# [王孝东的个人空间a](https://scm-git.github.io/)
-## [Jenkins](https://jenkins.io)
+﻿## [Jenkins](https://jenkins.io)
 ### 1. 安装
 官网安装说明：
 * [Ubuntu/Debian](https://pkg.jenkins.io/debian-stable/)
