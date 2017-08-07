@@ -7,7 +7,7 @@
 ## IDE
 ## [Java](./Java/java.md)
 ## Javascript
-## Jenkins
+## [Jenkins](./Jenkins/jenkins.md)
 ## Linux
 ## Maven
 ## MyBatis
