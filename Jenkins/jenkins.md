@@ -196,6 +196,7 @@ Blue Ocean展示的各Stage执行情况：
 ![Blue Ocean](Jenkins6.png)
 ### 5. Jenkins 常见错误
 * 打开Robot Framework报告错误：类似以下错误
+
 ```
 ...
 Opening Robot Framework log failed
