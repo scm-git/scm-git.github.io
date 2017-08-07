@@ -54,6 +54,7 @@ $ sudo service jenkins start/stop/restart
 4. 插件管理：Manage Jenkins -> Manage Plugins  
   Jenkins提供了太多的插件，具体需要用到哪些插件需要根据项目的情况而定，通常情况下，安装了Jenkins推荐的插件就基本够用了。最近我们的项目使用了AWS的Beanstalk服务，所以自己手动添加Beanstalk相关插件：
   ![Beanstalk Plugin](Jenkins5.png)
+  
 ### 3. Jenkins Pipeline
 目前Jenkins更推荐使用pipeline来配置Jenkins任务，主要有如下好处：
 * Jenkins Pipeline使用代码描述Jenkins任务，通常可以将其写入Jenkinsfile并且保存到版本库中，可以很容易的跟踪Pipeline任务的修改情况；一个Jenkinsfile就是一个Jenkins任务，放入版本库也变相的备份了Jenkins任务
@@ -194,7 +195,8 @@ node('master'){
 ```
 Blue Ocean展示的各Stage执行情况：
 ![Blue Ocean](Jenkins6.png)
-### 5. Jenkins 常见错误
+
+### 4. Jenkins 常见错误
 * 打开Robot Framework报告错误：类似以下错误
 
 ```
