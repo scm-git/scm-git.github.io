@@ -6,7 +6,7 @@
 * [Red Hat/CentOS/Fedora](https://pkg.jenkins.io/redhat-stable/)  
 安装步骤:
 1. 查看系统版本：`cat /etc/*-release`,执行结果如下：
-  ```
+  ```shell
   $ cat /etc/*-release
   CentOS Linux release 7.1.1503 (Core)
   NAME="CentOS Linux"
