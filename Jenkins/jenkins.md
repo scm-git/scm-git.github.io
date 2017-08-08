@@ -26,7 +26,7 @@
   CentOS Linux release 7.1.1503 (Core) 
   CentOS Linux release 7.1.1503 (Core)
   ```
-2. 系统版本为CentOS，则安装CentOS的方式安装，依次执行以下命令：
+2. 系统版本为CentOS，则按照CentOS的方式安装，依次执行以下命令：
 ```
 $ sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo
 $ sudo rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
