@@ -39,7 +39,7 @@ $ sudo service jenkins start/stop/restart
 
 ### 2. 配置Jenkins
 1. 在浏览器中访问Jenkins: http://ip:8080  
-  ip: 主机IP
+  ip: 主机IP  
   8080：默认端口是8080， 如果启动的时候出现错误，可能是8080端口被占用，可以设置其他端口号；  
   第一次登录的时候需要输入初始密码：按照页面中的提示，直接获取即可  
   ![Unlock Jenkins](jenkins1.png)
