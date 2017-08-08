@@ -62,7 +62,7 @@ $ sudo service jenkins start/stop/restart
 * Jenkins官方提供了Blue Ocean插件，便于查看Pipeline中每个Stage的执行情况  
 
 Jenkins Pipeline代码示例：  
-```
+```groovy
 //=====================Requirement for this pipeline script=============================
 // 1. Install docker on Jenkins master or node
 // 2. Configure the docker private registry
