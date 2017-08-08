@@ -7,7 +7,7 @@ TreeSet排序常用的两种方式：
 ---
 下面通过示例代码详细介绍着两种方法：
 #### 1. 通过TreeSet(Comparator<? super E> comparator) 构造方法指定TreeSet的比较器进行排序  
-1. 构造装入TreeSet的Java bean
+* 1. 构造装入TreeSet的Java bean
 
 ```java
 package src
@@ -28,7 +28,7 @@ public class Foo {
     }
 }
 ```
-2. 自己实现比较器
+* 2. 自己实现比较器
 
 ```java
 package src
@@ -48,7 +48,7 @@ public class MyComparator implements Comparator<Foo> {
 }
 ```
 
-3. new TreeSet时指定比较器
+* 3. new TreeSet时指定比较器
 
 ```java
 TreeSet<Foo> set = new TreeSet(new MyComparator());
