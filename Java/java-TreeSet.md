@@ -59,7 +59,7 @@ TreeSet<Foo> set = new TreeSet(new MyComparator());
 这种方法不需要自己写一个比较器，需要对装入set集合中的元素实现Comparable接口，TreeSet集合就根据bean的自然顺序进行排序
 * (1). 构造bean，需要实现Comparable接口，并重写compareTo()方法，compareTo方法中定义排序的方式
 
-```
+```java
 public class Foo implements Comparable {
     private int num;
 
@@ -94,7 +94,7 @@ public class Foo implements Comparable {
 
 * (2). 创建TreeSet时直接使用构造TreeSet()方法
 
-```
+```java
 TreeSet<Foo> set = new TreeSet(); 
 ```
 不需要指定比较器，这样在执行set.add()方法时，set集合就自动根据bean中compareTo()方法指定的方式进行排序。
