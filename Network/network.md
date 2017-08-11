@@ -116,6 +116,32 @@ TCP/IP为4层或者5层网络结构
           TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0    # 发送错误统计        
   ```
 * 根据以上广播子网掩码和广播地址，求CIDR： 将子网掩码和IP转换为二进制，然后网络ID部分保持一致，即可求出CIDR，比如上面例子中的CIDR为`15.114.96.0/21`,广播地址即为该子网的最大IP地址
+* `ethtool eth0` 查看网卡信息
+
+  ```
+  [root@localhost ~]# ethtool ens192
+  Settings for ens192:
+          Supported ports: [ TP ]
+          Supported link modes:   1000baseT/Full
+                                  10000baseT/Full
+          Supported pause frame use: No
+          Supports auto-negotiation: No
+          Advertised link modes:  Not reported
+          Advertised pause frame use: No
+          Advertised auto-negotiation: No
+          Speed: 10000Mb/s
+          Duplex: Full
+          Port: Twisted Pair
+          PHYAD: 0
+          Transceiver: internal
+          Auto-negotiation: off
+          MDI-X: Unknown
+          Supports Wake-on: uag
+          Wake-on: d
+          Link detected: yes
+  ```
+* netstat
+
 
   
   
