@@ -45,36 +45,60 @@
   * SWAPS   -- 显示交换次数相关信息
   
   ```
-  mysql> show profiles;
-  +----------+------------+------------------------------------------------+
-  | Query_ID | Duration   | Query                                          |
-  +----------+------------+------------------------------------------------+
-  |        1 | 0.00094075 | select * from printer order by id desc limit 5 |
-  |        2 | 0.01456450 | select * from printer                          |
-  +----------+------------+------------------------------------------------+
-  2 rows in set, 1 warning (0.00 sec)
-  
-  mysql> show profile for query 2;
-  +----------------------+----------+
-  | Status               | Duration |
-  +----------------------+----------+
-  | starting             | 0.000125 |
-  | checking permissions | 0.000039 |
-  | Opening tables       | 0.000049 |
-  | init                 | 0.000055 |
-  | System lock          | 0.000041 |
-  | optimizing           | 0.000036 |
-  | statistics           | 0.000045 |
-  | preparing            | 0.000042 |
-  | executing            | 0.000036 |
-  | Sending data         | 0.013845 |
-  | end                  | 0.000042 |
-  | query end            | 0.000052 |
-  | closing tables       | 0.000041 |
-  | freeing items        | 0.000079 |
-  | cleaning up          | 0.000040 |
-  +----------------------+----------+
-  15 rows in set, 1 warning (0.00 sec)
+  mysql> show profiles;                                                  
+  +----------+------------+------------------------------------------+   
+  | Query_ID | Duration   | Query                                    |   
+  +----------+------------+------------------------------------------+   
+  |        1 | 0.11317700 | select * from nicer_but_slower_film_list |   
+  +----------+------------+------------------------------------------+   
+  1 row in set, 1 warning (0.03 sec)                                     
+                                                                         
+  mysql> show profile for query 1;                                       
+  +----------------------+----------+                                    
+  | Status               | Duration |                                    
+  +----------------------+----------+                                    
+  | starting             | 0.000053 |                                    
+  | checking permissions | 0.052765 |                                    
+  | Opening tables       | 0.000169 |                                    
+  | checking permissions | 0.000002 |                                    
+  | checking permissions | 0.000001 |                                    
+  | checking permissions | 0.000001 |                                    
+  | checking permissions | 0.000001 |                                    
+  | checking permissions | 0.000001 |                                    
+  | checking permissions | 0.000280 |                                    
+  | init                 | 0.000076 |                                    
+  | checking permissions | 0.000004 |                                    
+  | checking permissions | 0.000001 |                                    
+  | checking permissions | 0.000001 |                                    
+  | checking permissions | 0.000001 |                                    
+  | checking permissions | 0.000020 |                                    
+  | System lock          | 0.000010 |                                    
+  | optimizing           | 0.000002 |                                    
+  | optimizing           | 0.000008 |                                    
+  | statistics           | 0.000079 |                                    
+  | preparing            | 0.000015 |                                    
+  | Creating tmp table   | 0.017341 |                                    
+  | Sorting result       | 0.000014 |                                    
+  | statistics           | 0.000009 |                                    
+  | preparing            | 0.000007 |                                    
+  | executing            | 0.000273 |                                    
+  | Sending data         | 0.000012 |                                    
+  | executing            | 0.000001 |                                    
+  | Sending data         | 0.022663 |                                    
+  | Creating sort index  | 0.019060 |                                    
+  | end                  | 0.000008 |                                    
+  | query end            | 0.000007 |                                    
+  | removing tmp table   | 0.000144 |                                    
+  | query end            | 0.000004 |                                    
+  | closing tables       | 0.000002 |                                    
+  | removing tmp table   | 0.000064 |                                    
+  | closing tables       | 0.000008 |                                    
+  | freeing items        | 0.000016 |                                    
+  | removing tmp table   | 0.000004 |                                    
+  | freeing items        | 0.000039 |                                    
+  | cleaning up          | 0.000015 |                                    
+  +----------------------+----------+                                    
+  40 rows in set, 1 warning (0.06 sec)                                   
   ```
 * 使用SHOW STATUS，执行前可以先执行`flush status;`；清空之前的状态
 
@@ -108,7 +132,37 @@
   +----------------------------+-------+
   21 rows in set (0.00 sec)
   ```
+* 使用EXPLAIN查看执行计划，下面是分别查询有索引和无索引列的执行计划结果：
 
+  ```
+  mysql> explain select * from printer where sn = 'xxx' \G      
+  *************************** 1. row ***************************
+             id: 1                                              
+    select_type: SIMPLE                                         
+          table: printer                                        
+           type: ALL                                            
+  possible_keys: NULL                                           
+            key: NULL                                           
+        key_len: NULL                                           
+            ref: NULL                                           
+           rows: 1875                                           
+          Extra: Using where                                    
+  1 row in set (0.00 sec)                                       
+                                                                
+  mysql> explain select * from printer where ep_email = 'xxx' \G
+  *************************** 1. row ***************************
+             id: 1                                              
+    select_type: SIMPLE                                         
+          table: printer                                        
+           type: ref                                            
+  possible_keys: idx_ep_email                                   
+            key: idx_ep_email                                   
+        key_len: 387                                            
+            ref: const                                          
+           rows: 1                                              
+          Extra: Using index condition                          
+  1 row in set (0.00 sec)                                       
+  ```
 * `SHOW GLOBAL STATUS`
 * `SHOW PROCESSLIST`，在末尾加上\G可以垂直的方式输出结果，方便结合linux命令排序
 * `mysql -e 'SHOW PROCESS LIST\G' | grep State: | sort | uniq -c | sort -rn`
@@ -155,6 +209,24 @@
   * 优点： 可以降低磁盘I/O，数据访问更快
   * 缺点： 更新聚簇索引列的代价很高，可能导致全表扫描变慢
 * 索引可以减少锁定的行，
+
+### 优化查询
+* **切分查询**，将一个大量数据的SQL操作切分为多个小量数据的SQL操作；如果用一个大的SQL语句一次性完成的话，可能需要一次性锁住很多数据，占满整个事务日志，耗尽系统资源，阻塞其他小的但很重要的查询
+* **分解关联查询**，有如下好处：
+  * 让缓存的效率更高
+  * 将查询分解后，执行单个查询可以减少锁的竞争
+  * 在应用层做关联，可以更容易对数据库进行拆分，更容易做到高性能和可扩展
+  * 查询本身效率也可能得到提升
+  * 可以减少冗余记录的查询
+* 对于一个MySQL连接，或者说一个线程，任何时刻都有一个状态，该状态表示了MySQL当前正在做什么，可以通过`SHOW FULL PROCESSLIST`查询每个连接的状态，这些状态的意义如下：
+  * Sleep
+  * Query
+  * Locked
+  * Analyzing and statistics
+  * Copying to tmp table [on disk]
+  * Sorting result
+  * Sending data
+
 ### 2. Oracle
 * 常规方式安装
 * Docker方式安装
