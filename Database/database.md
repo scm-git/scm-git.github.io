@@ -241,6 +241,17 @@
   * Copying to tmp table [on disk]
   * Sorting result
   * Sending data
+* 分区表
+  * MySQL分区表是一个独立的逻辑表，但是底层是由多个物理字表组成。一个表最多只能有1024个分区。
+  * MySQL分区表支持根据范围分区，还可以根据键值、哈希和列表分区
+  * 使用分区表可能遇到的问题
+    * NULL值，NULL值会使分区过滤无效
+    * 分区列和索引列不匹配
+    * 选择分区的成本可能很高
+    * 打开并锁住所有底层表的成本可能很高
+    * 维护分区的成本可能很高
+  * 使用EXPLAIN查看分区使用情况`EXPLAIN PARTITIONS`
+
 
 ### 2. Oracle
 * 常规方式安装
