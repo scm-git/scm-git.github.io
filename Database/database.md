@@ -4,6 +4,19 @@
 * 常规方式安装
 * Docker方式安装
 
+### MySQL创建用户并授权
+```
+mysql> CREATE USER 'dbuser'@'localhost' IDENTIFIED BY 'yourpassword';
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'dbuser'@'localhost' WITH GRANT OPTION;
+mysql>  CREATE USER 'dbuser'@'%' IDENTIFIED BY 'yourpassword';
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'dbuser'@'%' WITH GRANT OPTION;
+```
+* 如果root用户无法通过其他机器登录，通常是需要授权
+```
+mysql>  CREATE USER 'root'@'%' IDENTIFIED BY 'yourpassword';
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
+```
+
 ### MySQL常用命令
 * `show table status`查看表信息，下面的\G表示以列形式显示
 
