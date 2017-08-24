@@ -1,5 +1,5 @@
 # [王孝东的个人空间](https://scm-git.github.io/)
-## Install IDEA on Ubuntu
+## Install IDEA/WebStorm on Ubuntu
 1. Install Ubuntu Make
 ```
 sudo add-apt-repository ppa:ubuntu-desktop/ubuntu-make
