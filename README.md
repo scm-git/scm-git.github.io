@@ -4,7 +4,7 @@
 * [Database](./Database/database.md)
 * ELK
 * Git & GitHub
-* IDE
+* [IDE](./IDE/idea.md)
 * [Java](./Java/java.md)
 * Javascript
 * [Jenkins](./Jenkins/jenkins.md)
