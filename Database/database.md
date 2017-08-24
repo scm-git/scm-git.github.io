@@ -265,6 +265,11 @@ mysql> GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
     * 维护分区的成本可能很高
   * 使用EXPLAIN查看分区使用情况`EXPLAIN PARTITIONS`
 
+### 常见问题
+* MySQL修改端口后启动失败，报permission denied: 需要执行以下命令：
+```
+semanage port -a -t mysqld_port_t -p tcp 13306
+```
 
 ### 2. Oracle
 * 常规方式安装
