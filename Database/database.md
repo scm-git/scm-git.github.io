@@ -2,6 +2,10 @@
 ## Database
 ### 1. MySQL
 * 常规方式安装
+  * Ubuntu
+  ```
+  $ sudo apt install mysql-server
+  ```
 * Docker方式安装
 
 ### MySQL创建用户并授权
