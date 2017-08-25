@@ -15,8 +15,12 @@ mysql> GRANT ALL PRIVILEGES ON *.* TO 'dbuser'@'localhost' WITH GRANT OPTION;
 mysql>  CREATE USER 'dbuser'@'%' IDENTIFIED BY 'yourpassword';
 mysql> GRANT ALL PRIVILEGES ON *.* TO 'dbuser'@'%' WITH GRANT OPTION;
 mysql> CREATE USER 'wxd'@'192.168.1.3' IDENTIFIED BY 'password';
-mysql> GRANT ALL PRIVILEGES ON wxddatabase.* to 'wxd'@192.168.1.3 WITH GRANT OPTION;
+mysql> GRANT ALL PRIVILEGES ON wxddatabase.* to 'wxd'@'192.168.1.3' WITH GRANT OPTION;
+mysql> CREATE USER 'appuser'@'192.168.1.%' IDENTIFIED BY 'password';
+mysql> GRANT SELECT, INSERT, UPDATE, DELETE ON appdatabase.* to 'appuser'@'192.168.1.%' WITH GRANT OPTION;
 ```
+**最后一个用户的host是一个地址段，表示该地址段内的host都可以连接，并且最后一个用户的权限只有appdatabase数据库上的的增删改查操作**
+
 * 如果root用户无法通过其他机器登录，通常是需要授权
 ```
 mysql>  CREATE USER 'root'@'%' IDENTIFIED BY 'yourpassword';
