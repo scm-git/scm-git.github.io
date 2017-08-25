@@ -409,6 +409,7 @@ Query OK, 0 rows affected (0.00 sec)
 
 * 步骤：
   * 将源服务器中的文件打包，打包的目录包括需要迁移的库(一个库对应一个目录，如下图)，以及ibdata1文件
+  ![数据库目录](./db1.png)
   ```
   wanxiaod@WANXIAOD4 MINGW64 /c/ProgramData/MySQL/MySQL Server 5.7/Data
   $ tar -zcvf data.tar cloud_print_1 cloud_print_pie ibdata1 sakila spring_demo world
