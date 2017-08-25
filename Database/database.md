@@ -376,6 +376,30 @@ Query OK, 0 rows affected (0.00 sec)
     * 维护分区的成本可能很高
   * 使用EXPLAIN查看分区使用情况`EXPLAIN PARTITIONS`
 
+---
+
+### MySQL数据库迁移
+[MySQL数据库迁移](http://www.cnblogs.com/advocate/archive/2013/11/19/3431606.html)
+* 亲测过直接传输数据文件的方式迁移
+  * 源数据库： Windows 10 MySQL server 5.7
+  ```
+  wxd@wangxiaodong:~$ mysql -u root -h 192.168.1.3 -p
+  Enter password: 
+  Welcome to the MySQL monitor.  Commands end with ; or \g.
+  Your MySQL connection id is 6
+  Server version: 5.7.12-log MySQL Community Server (GPL)
+  ```
+  
+  * 目标数据库： Ubuntu 17.04 MySQL Server 5.7
+  ```
+  wxd@wangxiaodong:~$ mysql -uroot -p
+  Enter password: 
+  Welcome to the MySQL monitor.  Commands end with ; or \g.
+  Your MySQL connection id is 5
+  Server version: 5.7.19-0ubuntu0.17.04.1 (Ubuntu)
+  ```
+
+
 ### 常见问题
 * MySQL修改端口后启动失败，报permission denied: 需要执行以下命令：
 ```
