@@ -21,6 +21,8 @@ mysql>  CREATE USER 'root'@'%' IDENTIFIED BY 'yourpassword';
 mysql> GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
 ```
 
+* 如果已经对root或者其他帐户赋予了权限，其他机器仍然无法登录，通常需要修改MySQL的配置文件，配置文件路径通常为`/etc/mysql/my.cnf`或者`/etc/mysql/mysql.conf.d/mysqld.cnf`，注释掉`bind-address=127.0.0.1`，然后重启服务`sudo service mysql restart`
+
 ### MySQL常用命令
 * `show table status`查看表信息，下面的\G表示以列形式显示
 
