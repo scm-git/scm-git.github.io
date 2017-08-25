@@ -70,7 +70,7 @@ mysql> select host, user from user;
 6 rows in set (0.00 sec)
 ```
 
-如果要让修改立即生效，则需要执行`flush privileges`，需要有相关权限的用户才能执行该操作
+* 如果要让修改立即生效，则需要执行`flush privileges`，需要有相关权限的用户才能执行该操作
 ```
 mysql> flush privileges;
 Query OK, 0 rows affected (0.00 sec)
