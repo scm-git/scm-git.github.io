@@ -386,7 +386,7 @@ Query OK, 0 rows affected (0.00 sec)
 ---
 
 ### MySQL数据库迁移
-[MySQL数据库迁移](http://www.cnblogs.com/advocate/archive/2013/11/19/3431606.html)
+[MySQL数据库迁移好的文章](http://www.cnblogs.com/advocate/archive/2013/11/19/3431606.html)
 * **迁移之前最好使用一个新库，以避免迁移失败后无法恢复原有的库**
 * 亲测过直接传输数据文件的方式迁移
   * 源数据库： Windows 10 MySQL server 5.7
