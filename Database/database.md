@@ -55,7 +55,6 @@ Create_tablespace_priv: Y
 mysql> update user set host = 'localhost' where user = 'wxd' and host = '%';
 Query OK, 1 row affected (0.00 sec)
 Rows matched: 1  Changed: 1  Warnings: 0
-
 mysql> select host, user from user;
 +-----------+------------------+
 | host      | user             |
@@ -87,7 +86,6 @@ Query OK, 0 rows affected (0.01 sec)
 mysql> update user set authentication_string = password('abcefg') where user = 'wxd' and host = '%';
 Query OK, 1 row affected, 1 warning (0.00 sec)
 Rows matched: 1  Changed: 1  Warnings: 1
-
 mysql> show warnings;
 +---------+------+-------------------------------------------------------------------+
 | Level   | Code | Message                                                           |
