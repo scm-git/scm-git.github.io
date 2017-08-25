@@ -30,32 +30,7 @@ mysql> select * from user where user = 'root' and host = '%' \G
                   Host: %
                   User: root
            Select_priv: Y
-           Insert_priv: Y
-           Update_priv: Y
-           Delete_priv: Y
-           Create_priv: Y
-             Drop_priv: Y
-           Reload_priv: Y
-         Shutdown_priv: Y
-          Process_priv: Y
-             File_priv: Y
-            Grant_priv: Y
-       References_priv: Y
-            Index_priv: Y
-            Alter_priv: Y
-          Show_db_priv: Y
-            Super_priv: Y
- Create_tmp_table_priv: Y
-      Lock_tables_priv: Y
-          Execute_priv: Y
-       Repl_slave_priv: Y
-      Repl_client_priv: Y
-      Create_view_priv: Y
-        Show_view_priv: Y
-   Create_routine_priv: Y
-    Alter_routine_priv: Y
-      Create_user_priv: Y
-            Event_priv: Y
+           ...
           Trigger_priv: Y
 Create_tablespace_priv: Y
               ssl_type: 
@@ -75,7 +50,7 @@ Create_tablespace_priv: Y
 1 row in set (0.00 sec)
 ```
 
-* 因此可以通过修改mysql.user表来修改用户的登录权限
+* 因此可以通过修改mysql.user表来修改用户的登录权限:
 ```
 mysql> update user set host = 'localhost' where user = 'wxd' and host = '%';
 Query OK, 1 row affected (0.00 sec)
@@ -94,6 +69,7 @@ mysql> select host, user from user;
 +-----------+------------------+
 6 rows in set (0.00 sec)
 ```
+
 如果要让修改立即生效，则需要执行`flush privileges`，需要有相关权限的用户才能执行该操作
 ```
 mysql> flush privileges;
