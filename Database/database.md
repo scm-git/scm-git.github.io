@@ -27,6 +27,17 @@ mysql>  CREATE USER 'root'@'%' IDENTIFIED BY 'yourpassword';
 mysql> GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
 ```
 
+* 查看用户权限
+```
+mysql> show grants for root;
++-------------------------------------------------------------+
+| Grants for root@%                                           |
++-------------------------------------------------------------+
+| GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION |
++-------------------------------------------------------------+
+1 row in set (0.00 sec)
+```
+
 * 创建好用户之后，可以查询mysql.user表来查看已创建的用户：
 ```
 mysql> select * from user where user = 'root' and host = '%' \G
