@@ -14,6 +14,8 @@ mysql> CREATE USER 'dbuser'@'localhost' IDENTIFIED BY 'yourpassword';
 mysql> GRANT ALL PRIVILEGES ON *.* TO 'dbuser'@'localhost' WITH GRANT OPTION;
 mysql>  CREATE USER 'dbuser'@'%' IDENTIFIED BY 'yourpassword';
 mysql> GRANT ALL PRIVILEGES ON *.* TO 'dbuser'@'%' WITH GRANT OPTION;
+mysql> CREATE USER 'wxd'@'192.168.1.3' IDENTIFIED BY 'password';
+mysql> GRANT ALL PRIVILEGES ON wxddatabase.* to 'wxd'@192.168.1.3 WITH GRANT OPTION;
 ```
 * 如果root用户无法通过其他机器登录，通常是需要授权
 ```
@@ -21,7 +23,121 @@ mysql>  CREATE USER 'root'@'%' IDENTIFIED BY 'yourpassword';
 mysql> GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
 ```
 
+* 创建好用户之后，可以查询mysql.user表来查看已创建的用户：
+```
+mysql> select * from user where user = 'root' and host = '%' \G
+*************************** 1. row ***************************
+                  Host: %
+                  User: root
+           Select_priv: Y
+           Insert_priv: Y
+           Update_priv: Y
+           Delete_priv: Y
+           Create_priv: Y
+             Drop_priv: Y
+           Reload_priv: Y
+         Shutdown_priv: Y
+          Process_priv: Y
+             File_priv: Y
+            Grant_priv: Y
+       References_priv: Y
+            Index_priv: Y
+            Alter_priv: Y
+          Show_db_priv: Y
+            Super_priv: Y
+ Create_tmp_table_priv: Y
+      Lock_tables_priv: Y
+          Execute_priv: Y
+       Repl_slave_priv: Y
+      Repl_client_priv: Y
+      Create_view_priv: Y
+        Show_view_priv: Y
+   Create_routine_priv: Y
+    Alter_routine_priv: Y
+      Create_user_priv: Y
+            Event_priv: Y
+          Trigger_priv: Y
+Create_tablespace_priv: Y
+              ssl_type: 
+            ssl_cipher: 
+           x509_issuer: 
+          x509_subject: 
+         max_questions: 0
+           max_updates: 0
+       max_connections: 0
+  max_user_connections: 0
+                plugin: mysql_native_password
+ authentication_string: *6BB4837EB74329105EE4568DDA7DC67ED2CA2AD9
+      password_expired: N
+ password_last_changed: 2017-08-25 08:17:01
+     password_lifetime: NULL
+        account_locked: N
+1 row in set (0.00 sec)
+```
+
+* 因此可以通过修改mysql.user表来修改用户的登录权限
+```
+mysql> update user set host = 'localhost' where user = 'wxd' and host = '%';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select host, user from user;
++-----------+------------------+
+| host      | user             |
++-----------+------------------+
+| %         | root             |
+| localhost | debian-sys-maint |
+| localhost | mysql.session    |
+| localhost | mysql.sys        |
+| localhost | root             |
+| localhost | wxd              |
++-----------+------------------+
+6 rows in set (0.00 sec)
+```
+如果要让修改立即生效，则需要执行`flush privileges`，需要有相关权限的用户才能执行该操作
+```
+mysql> flush privileges;
+Query OK, 0 rows affected (0.00 sec)
+```
+
+* 修改用户密码：
+```
+mysql> alter user 'wxd'@'localhost' identified by '654321';
+Query OK, 0 rows affected (0.01 sec)
+```
+
+* 直接修改mysql.user表，修改是需要用password()加密，操作中mysql出现一个warning，查看warning发现，password已经被废弃，可能会在后续的版本中被删除，因此这种方式仅作为了解
+```
+mysql> update user set authentication_string = password('abcefg') where user = 'wxd' and host = '%';
+Query OK, 1 row affected, 1 warning (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 1
+
+mysql> show warnings;
++---------+------+-------------------------------------------------------------------+
+| Level   | Code | Message                                                           |
++---------+------+-------------------------------------------------------------------+
+| Warning | 1681 | 'PASSWORD' is deprecated and will be removed in a future release. |
++---------+------+-------------------------------------------------------------------+
+1 row in set (0.00 sec)
+```
+
+* 修改当前用户密码：
+```
+mysql> alter user user() identified by '654321';
+Query OK, 0 rows affected (0.00 sec)
+```
+**mysql的帐户是有host和user联合唯一确认一个用户，因此相同的user名称，不同的host可以有不同的密码，不同的权限，从本质上看，这是两个不同的帐户**
+
+* 删除用户
+```
+mysql> drop user 'wxd'@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+```
+
+
 * 如果已经对root或者其他帐户赋予了权限，其他机器仍然无法登录，通常需要修改MySQL的配置文件，配置文件路径通常为`/etc/mysql/my.cnf`或者`/etc/mysql/mysql.conf.d/mysqld.cnf`，注释掉`bind-address=127.0.0.1`，然后重启服务`sudo service mysql restart`
+
+
 
 ### MySQL常用命令
 * `show table status`查看表信息，下面的\G表示以列形式显示
