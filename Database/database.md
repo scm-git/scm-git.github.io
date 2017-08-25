@@ -387,6 +387,7 @@ Query OK, 0 rows affected (0.00 sec)
 
 ### MySQL数据库迁移
 [MySQL数据库迁移](http://www.cnblogs.com/advocate/archive/2013/11/19/3431606.html)
+* **迁移之前最好使用一个新库，以避免迁移失败后无法恢复原有的库**
 * 亲测过直接传输数据文件的方式迁移
   * 源数据库： Windows 10 MySQL server 5.7
   ```
@@ -421,7 +422,7 @@ Query OK, 0 rows affected (0.00 sec)
   data.tar                                                                              100% 6789KB   6.6MB/s   00:01
   ```
   
-  * 在目标服务器上解压data.tar文件，并放置在mysql的目录中`/var/lib/mysql`，解压后可能需要修改文件的所属用户/组
+  * 在目标服务器上解压data.tar文件，并放置在mysql的目录中`/var/lib/mysql`，解压后可能需要修改文件的所属用户/组; **该步骤之前请先备份ibdata1文件，以免迁移失败后，无法恢复原来的数据库文件**
   ```
   root@wangxiaodong:/var/lib/mysql/data# tar -xf data.tar 
   root@wangxiaodong:/var/lib/mysql/data# chown -R mysql:mysql *
@@ -479,6 +480,8 @@ Query OK, 0 rows affected (0.00 sec)
   +----------+------------+-----------+---------------------+
   2 rows in set (0.00 sec)
   ```
+  
+  * 能够查询到新的数据库中的数据，说明迁移成功。
   
 ---
 
