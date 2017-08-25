@@ -123,10 +123,9 @@ mysql> drop user 'wxd'@'localhost';
 Query OK, 0 rows affected (0.00 sec)
 ```
 
-
 * 如果已经对root或者其他帐户赋予了权限，其他机器仍然无法登录，通常需要修改MySQL的配置文件，配置文件路径通常为`/etc/mysql/my.cnf`或者`/etc/mysql/mysql.conf.d/mysqld.cnf`，注释掉`bind-address=127.0.0.1`，然后重启服务`sudo service mysql restart`
 
-
+---
 
 ### MySQL常用命令
 * `show table status`查看表信息，下面的\G表示以列形式显示
@@ -154,6 +153,8 @@ Query OK, 0 rows affected (0.00 sec)
           Comment:                                               
   1 row in set (0.00 sec)                                        
   ```
+
+---
 
 ### MySQL性能分析
 * 使用SHOW PROFILE；默认是关闭的，开启profile，在MySQL连接会话中执行`set profiling = 1;`，主要命令`show profiles`，`show profile [type] on query 2`，示例如下：
@@ -292,6 +293,8 @@ Query OK, 0 rows affected (0.00 sec)
 * `mysql -e 'SHOW PROCESS LIST\G' | grep State: | sort | uniq -c | sort -rn`
 * 慢查询日志，默认路径：/var/log/mysql/slow-query.log
 
+---
+
 ### MySQL Schema与数据类型优化
 * 选择优化数据类型的简单原则
   * 更小的通常更好：选择你认为不会超过范围的最小类型
@@ -314,6 +317,8 @@ Query OK, 0 rows affected (0.00 sec)
   * “影子拷贝”：创建一张和源表无关的新表，并将新表修改为所需要的数据结构，然后通过重命名和删除交换两张表。Facebook的数据库运维团队提供"online schema change"工具完成影子拷贝
   * 使用一个备库，在备库上完成修改后，再切换主库
 
+---
+
 ### MySQL索引
 * MySQL索引类型：
   * B-Tree：如果不特别指明，通常所说的索引就是B-Tree索引。节点会保存子节点的指针；使用B-Tree需要注意的地方：
@@ -333,6 +338,8 @@ Query OK, 0 rows affected (0.00 sec)
   * 优点： 可以降低磁盘I/O，数据访问更快
   * 缺点： 更新聚簇索引列的代价很高，可能导致全表扫描变慢
 * 索引可以减少锁定的行，
+
+---
 
 ### 优化查询
 * **切分查询**，将一个大量数据的SQL操作切分为多个小量数据的SQL操作；如果用一个大的SQL语句一次性完成的话，可能需要一次性锁住很多数据，占满整个事务日志，耗尽系统资源，阻塞其他小的但很重要的查询
@@ -399,6 +406,81 @@ Query OK, 0 rows affected (0.00 sec)
   Server version: 5.7.19-0ubuntu0.17.04.1 (Ubuntu)
   ```
 
+* 步骤：
+  * 将源服务器中的文件打包，打包的目录包括需要迁移的库(一个库对应一个目录，如下图)，以及ibdata1文件
+  ```
+  wanxiaod@WANXIAOD4 MINGW64 /c/ProgramData/MySQL/MySQL Server 5.7/Data
+  $ tar -zcvf data.tar cloud_print_1 cloud_print_pie ibdata1 sakila spring_demo world
+  ```
+  
+  * 上传到目标服务器：
+  ```
+  wanxiaod@WANXIAOD4 MINGW64 /c/ProgramData/MySQL/MySQL Server 5.7/Data
+  $ scp data.tar wxd@wangxiaodong:~/
+  wxd@wangxiaodong's password:
+  data.tar                                                                              100% 6789KB   6.6MB/s   00:01
+  ```
+  
+  * 在目标服务器上解压data.tar文件，并放置在mysql的目录中`/var/lib/mysql`，解压后可能需要修改文件的所属用户/组
+  ```
+  root@wangxiaodong:/var/lib/mysql/data# tar -xf data.tar 
+  root@wangxiaodong:/var/lib/mysql/data# chown -R mysql:mysql *
+  root@wangxiaodong:/var/lib/mysql/data# mv * ../
+  root@wangxiaodong:/var/lib/mysql/data# cd ..
+  root@wangxiaodong:/var/lib/mysql# rm -rf data/
+  root@wangxiaodong:/var/lib/mysql# ll
+  总用量 188472
+  drwx------ 10 mysql mysql     4096 8月  25 17:07 ./
+  drwxr-xr-x 74 root  root      4096 8月  24 23:20 ../
+  -rw-r-----  1 mysql mysql       56 8月  24 23:20 auto.cnf
+  drwxr-xr-x  2 mysql mysql     4096 8月   4 17:54 cloud_print_1/
+  drwxr-xr-x  2 mysql mysql     4096 7月  27  2016 cloud_print_pie/
+  -rw-r--r--  1 root  root         0 8月  24 23:21 debian-5.7.flag
+  -rw-r-----  1 mysql mysql      546 8月  25 15:28 ib_buffer_pool
+  -rw-r--r--  1 mysql mysql 79691776 8月  25 16:45 ibdata1
+  -rw-r-----  1 mysql mysql 50331648 8月  25 16:45 ib_logfile0
+  -rw-r-----  1 mysql mysql 50331648 8月  24 23:20 ib_logfile1
+  -rw-r-----  1 mysql mysql 12582912 8月  25 15:28 ibtmp1
+  drwxr-x---  2 mysql mysql     4096 8月  24 23:20 mysql/
+  drwxr-x---  2 mysql mysql     4096 8月  24 23:20 performance_schema/
+  drwxr-xr-x  2 mysql mysql     4096 7月  22  2016 sakila/
+  drwxr-xr-x  2 mysql mysql     4096 9月  26  2016 spring_demo/
+  drwxr-x---  2 mysql mysql    12288 8月  24 23:21 sys/
+  drwxr-xr-x  2 mysql mysql     4096 7月  22  2016 world/
+  ```
+  
+  * 最后重新登录数据库查看是否能查询到相关的库和数据：
+  ```
+  mysql> show databases;
+  +--------------------+
+  | Database           |
+  +--------------------+
+  | information_schema |
+  | cloud_print_1      |
+  | cloud_print_pie    |
+  | mysql              |
+  | performance_schema |
+  | sakila             |
+  | spring_demo        |
+  | sys                |
+  | world              |
+  +--------------------+
+  9 rows in set (0.00 sec)
+  mysql> use sakila;
+  Reading table information for completion of table and column names
+  You can turn off this feature to get a quicker startup with -A
+  Database changed
+  mysql> select * from actor limit 2;
+  +----------+------------+-----------+---------------------+
+  | actor_id | first_name | last_name | last_update         |
+  +----------+------------+-----------+---------------------+
+  |        1 | PENELOPE   | GUINESS   | 2006-02-15 04:34:33 |
+  |        2 | NICK       | WAHLBERG  | 2006-02-15 04:34:33 |
+  +----------+------------+-----------+---------------------+
+  2 rows in set (0.00 sec)
+  ```
+  
+---
 
 ### 常见问题
 * MySQL修改端口后启动失败，报permission denied: 需要执行以下命令：
