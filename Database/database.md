@@ -486,6 +486,75 @@ Query OK, 0 rows affected (0.00 sec)
   
 ---
 
+### MySQL配置
+* MySQL的配置文件通常为`/etc/my.cnf`或者`/etc/mysql/my.cnf`，你也可以通过`mysqld`命令查看默认的配置文件路径：
+```
+wxd@wangxiaodong:~$ mysqld --verbose --help | grep -A 1 "Default options"
+mysqld: Can't change dir to '/var/lib/mysql/' (Errcode: 13 - Permission denied)
+2017-08-26T09:14:29.180829Z 0 [Warning] Changed limits: max_open_files: 1024 (requested 5000)
+2017-08-26T09:14:29.180893Z 0 [Warning] Changed limits: table_open_cache: 431 (requested 2000)
+Default options are read from the following files in the given order:
+/etc/my.cnf /etc/mysql/my.cnf ~/.my.cnf 
+wxd@wangxiaodong:~$ 
+```
+
+* MySQL的配置文件可以使用版本控制系统管理起来，便于追踪每次修改以及失败后快速回滚
+
+* MySQL的绝大多数据配置都不用修改，默认的就是最优的，但是有两个选项通常是需要修改的，这两个配置项的默认值通常都比较小：
+  * innodb_buffer_pool_size，5.7版本的默认值为128M，这个值通常可以设置为系统内存的3/4，3/4只是一个简单的原则，如果你的系统上除了MySQL还要运行其他应用，则需要减掉其他应用的总内存，如果只运行MySQL,而且的系统内存并不是特别大的话(如16G以内)，则可以简单的设置为`16G×0.75`。Amazon RDS就是根据这个原则设置的该值
+  * innodb_log_file_size，5.7版本的默认值为48M， 而Amazon RDS设置的值是固定的128M
+
+* MySQL基本配置项
+  * max_connections 该配置项设置MySQL server的最大连接数，默认值为100，这个值通常都太小，不能满足需求，根据自己的需要可以适当的调大这个值，500是一个比较合理的起点值
+  * tmp_table_size和max_heap_table_size 这两个配置项控制使用memory引擎的内存临时表能使用多大的内存，如果这两个值太小，当临时表需要的内存大小超过该值时，会将表转换为MyISAM磁盘表
+
+* 安全和稳定相关的配置
+  * max_allow_packet 放置服务器发送太大的包，也会控制多大的包可以被接收。如果你需要复制数据，可能需要修改该配置项
+  * max_connect_errors 由于网络问题，客户端配置错误或者其他问题可能导致短时间内不断的尝试连接，如果超过该配置次数，客户端可能会被列入黑名单，然后将无法连接，直到主机刷新缓存
+  * skip_name_resolve 禁用dns查找，如果关闭了dns查找，则需要把基于主机名的授权改为IP地址、通配符或者特定主机名“localhost”
+  
+* 下面的选项可以控制复制行为，并且对防止备库出问题有帮助
+  * read_only 这个选项禁止没有特权的用户在备库做变更，只接受从主库传输过来的变更，不接受从应用过来的变更。强烈建议把备库设置为只读模式
+  * skip_slave_start 阻止MySQL自动启动复制。因为在不安全的崩溃或其他问题出现后，启动复制是不安全的，因此需要禁用自动启动复制，用户需要手动检查并确认安全后再自行启动
+  * slave_net_timeout 这个选项控制备库发现跟主库的连接已经失败并且需要重连之前等待的时间。默认值是一个小时，太长了，推荐设置为1分钟或者更短
+  * sync_master_info、sync_relay_log、sync_relay_log_info
+  
+* [MySQL在线配置工具](http://tools.percona.com)
+
+---
+
+### MySQL 分布式(XA)事务
+* 分布式事务将存储引擎级别的ACID扩展到数据库层面，甚至扩展到多个数据库之间--这需要通过[二阶段提交](https://en.wikipedia.org/wiki/Two-phase_commit_protocol)实现
+* 分布式事务需要具备一个或多个资源管理器(Resource Manager(RM))和一个事务管理器(Transaction Manager(TM))
+* MySQL innoDB支持XA事务
+```
+mysql> select * from my_xa_table;
+Empty set (0.00 sec)
+mysql>
+mysql> xa start 'myxa1';
+Query OK, 0 rows affected (0.00 sec)
+mysql>
+mysql> insert into my_xa_table values (1,'xa1');
+Query OK, 1 row affected (0.01 sec)
+mysql>
+mysql> xa end 'myxa1';
+Query OK, 0 rows affected (0.00 sec)
+mysql>
+mysql> xa prepare 'myxa1';
+Query OK, 0 rows affected (0.04 sec)
+mysql>
+mysql> xa commit 'myxa1';
+Query OK, 0 rows affected (0.04 sec)
+mysql>
+mysql> select * from my_xa_table;
++----+-------+
+| id | value |
++----+-------+
+|  1 | xa1   |
++----+-------+
+1 row in set (0.00 sec)
+```
+
 ### 常见问题
 * MySQL修改端口后启动失败，报permission denied: 需要执行以下命令：
 ```
