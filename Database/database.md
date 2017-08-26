@@ -523,6 +523,28 @@ wxd@wangxiaodong:~$
 
 ---
 
+### MySQL事务、隔离级别、多版本并发控制(MVCC)
+* 事务保证的数据的ACID特性
+* 隔离级别
+  * READ UNCOMMITTED(未提交读)
+  * READ COMMITTED(提交读)
+  * REPEATABLE READ(可重复读)
+  * SERIALIZABLE(可串行化)
+* MySQL InnoDB默认的隔离级别是REPEATABLE READ(可重复读)，MySQL InnoDB使用MVCC来避免REPEATABLE READ的幻读问题
+* MVCC简单说明
+  * MVCC是行级锁的一个变种，但是它在很多情况下避免了加锁的操作，因此开销更低
+  * 各种数据库，包括Oracle, PostgreSQL等都实现了MVCC，但是各自的实现机制不尽相同，因为MVCC没有一个统一的实现标准
+  * MVCC只会在REPEATABLE READ和READ COMMITTED两个隔离级别下工作。另外两个隔离级别和MVCC不兼容，因为READ UNCOMMITTED总是读取最新的数据行，而SERIALIZABLE则会对所有读取的行加锁
+* InnoDB的MVCC，是通过在每行记录后面保存两个隐藏的列来实现的。这两个列，一个保存了行的创建时间，一个保存了行的过期时间(或删除时间)。当然并不是实际的时间值，而是系统版本号(system version number)。当开始一个新的事务，系统版本号都会递增，事务开始时刻的系统版本号会作为当前开始事务的版本号，用来和查询到的每行记录的版本号进行比较。下面看一下InnoDB在REPEATABLE READ隔离级别下MVCC对增删改查的具体操作：
+  * **SELECT** InnoDB会根据以下两个条件检查每行记录：
+    1. InnoDB只查找版本早于当前事务版本的数据行(也就是行的系统版本号小于或等于事务的系统版本号)，这样可以确保事务读取的行要么是事务开始之前已经存在的，要么是当前事务自身插入或者修改过的
+    2. 行的删除版本要么未定义，要么大于当前事务版本号。这可以确保事务读取到的行，在事务开始之前未被删除
+  * **INSERT** InnoDB为新插入的每一行保存当前系统版本号作为行版本号
+  * **DELETE** InnoDB为删除的每一行保存当前版本号作为行删除标识
+  * **UPDATE** InnoDB会插入一行新记录，并保存当前系统版本号为行版本号，同时保存当前系统版本号到原来的行作为行删除标识
+
+---    
+
 ### MySQL 分布式(XA)事务
 * 分布式事务将存储引擎级别的ACID扩展到数据库层面，甚至扩展到多个数据库之间--这需要通过[二阶段提交](https://en.wikipedia.org/wiki/Two-phase_commit_protocol)实现
 * 分布式事务需要具备一个或多个资源管理器(Resource Manager(RM))和一个事务管理器(Transaction Manager(TM))
