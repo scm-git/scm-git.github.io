@@ -545,6 +545,61 @@ wxd@wangxiaodong:~$
 
 ---    
 
+### mysql_config_editor MySQL Configuration Utility
+* mysql_config_editor 执行该命令可以设置mysql登录选项，包括密码，后面登录的时候可以不用再次输入密码等，该命令会生成一个文件.mylogin.cnf，Unix系统会将该文件保存在宿主目录下(~/.mylogin.cnf)，Windows会保存在%APPDATA%\MySQL目录下
+```
+wxd@wangxiaodong:~$ mysql_config_editor set --login-path=client --host=localhost --user=wxd --password
+Enter password:
+wxd@wangxiaodong:~$ 
+```
+
+* 这里login-path设置为client，client是默认的选项，执行`mysql`的时候可以直接连接该配置的MySQL server， 如果有多个MySQL server需要连接，可以继续配置：
+```
+wxd@wangxiaodong:~$ mysql_config_editor set --login-path=wanxiaod4 --host=192.168.1.3 --user=root --password
+Enter password: 
+wxd@wangxiaodong:~$ mysql --login-path=wanxiaod4
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 4
+Server version: 5.7.12-log MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2017, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql>
+```
+
+* 连接非client的server就需要指定`--login-path`选项
+
+* 可以使用`mysql_config_editor print --all`命令查看配置
+```
+wxd@wangxiaodong:~$ mysql_config_editor print --all
+[client]
+user = wxd
+password = *****
+host = localhost
+[wanxiaod4]
+user = root
+password = *****
+host = 192.168.1.3
+wxd@wangxiaodong:~$
+```
+
+* 除了使用mysql_config_editor的方式配置登录选项外，也可以直接在宿主目录下创建.my.cnf文件，此时密码需要使用明文：
+```
+[client]
+host=localhost
+user='wxd'
+password='123456'
+```
+
+---
+
+
 ### MySQL 分布式(XA)事务
 * 分布式事务将存储引擎级别的ACID扩展到数据库层面，甚至扩展到多个数据库之间--这需要通过[二阶段提交](https://en.wikipedia.org/wiki/Two-phase_commit_protocol)实现
 * 分布式事务需要具备一个或多个资源管理器(Resource Manager(RM))和一个事务管理器(Transaction Manager(TM))
