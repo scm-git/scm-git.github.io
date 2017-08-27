@@ -608,33 +608,34 @@ password='123456'
 * 分布式事务将存储引擎级别的ACID扩展到数据库层面，甚至扩展到多个数据库之间--这需要通过[二阶段提交](https://en.wikipedia.org/wiki/Two-phase_commit_protocol)实现
 * 分布式事务需要具备一个或多个资源管理器(Resource Manager(RM))和一个事务管理器(Transaction Manager(TM))
 * MySQL innoDB支持XA事务
-```
-mysql> select * from my_xa_table;
-Empty set (0.00 sec)
-mysql>
-mysql> xa start 'myxa1';
-Query OK, 0 rows affected (0.00 sec)
-mysql>
-mysql> insert into my_xa_table values (1,'xa1');
-Query OK, 1 row affected (0.01 sec)
-mysql>
-mysql> xa end 'myxa1';
-Query OK, 0 rows affected (0.00 sec)
-mysql>
-mysql> xa prepare 'myxa1';
-Query OK, 0 rows affected (0.04 sec)
-mysql>
-mysql> xa commit 'myxa1';
-Query OK, 0 rows affected (0.04 sec)
-mysql>
-mysql> select * from my_xa_table;
-+----+-------+
-| id | value |
-+----+-------+
-|  1 | xa1   |
-+----+-------+
-1 row in set (0.00 sec)
-```
+
+  ```
+  mysql> select * from my_xa_table;
+  Empty set (0.00 sec)
+  
+  mysql> xa start 'myxa1';
+  Query OK, 0 rows affected (0.00 sec)
+  
+  mysql> insert into my_xa_table values (1,'xa1');
+  Query OK, 1 row affected (0.01 sec)
+  
+  mysql> xa end 'myxa1';
+  Query OK, 0 rows affected (0.00 sec)
+  
+  mysql> xa prepare 'myxa1';
+  Query OK, 0 rows affected (0.04 sec)
+  
+  mysql> xa commit 'myxa1';
+  Query OK, 0 rows affected (0.04 sec)
+  
+  mysql> select * from my_xa_table;
+  +----+-------+
+  | id | value |
+  +----+-------+
+  |  1 | xa1   |
+  +----+-------+
+  1 row in set (0.00 sec)
+  ```
 
 ### 常见问题
 * MySQL修改端口后启动失败，报permission denied: 需要执行以下命令：
