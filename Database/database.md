@@ -453,37 +453,37 @@ Query OK, 0 rows affected (0.00 sec)
   
   * 最后重新登录数据库查看是否能查询到相关的库和数据：
   
-  ```
-  mysql> show databases;
-  +--------------------+
-  | Database           |
-  +--------------------+
-  | information_schema |
-  | cloud_print_1      |
-  | cloud_print_pie    |
-  | mysql              |
-  | performance_schema |
-  | sakila             |
-  | spring_demo        |
-  | sys                |
-  | world              |
-  +--------------------+
-  9 rows in set (0.00 sec)
-  
-  mysql> use sakila;
-  Reading table information for completion of table and column names
-  You can turn off this feature to get a quicker startup with -A
-  Database changed
-  
-  mysql> select * from actor limit 2;
-  +----------+------------+-----------+---------------------+
-  | actor_id | first_name | last_name | last_update         |
-  +----------+------------+-----------+---------------------+
-  |        1 | PENELOPE   | GUINESS   | 2006-02-15 04:34:33 |
-  |        2 | NICK       | WAHLBERG  | 2006-02-15 04:34:33 |
-  +----------+------------+-----------+---------------------+
-  2 rows in set (0.00 sec)
-  ```
+    ```
+    mysql> show databases;
+      +--------------------+
+      | Database           |
+      +--------------------+
+      | information_schema |
+      | cloud_print_1      |
+      | cloud_print_pie    |
+      | mysql              |
+      | performance_schema |
+      | sakila             |
+      | spring_demo        |
+      | sys                |
+      | world              |
+      +--------------------+
+      9 rows in set (0.00 sec)
+      
+      mysql> use sakila;
+      Reading table information for completion of table and column names
+      You can turn off this feature to get a quicker startup with -A
+      Database changed
+      
+      mysql> select * from actor limit 2;
+      +----------+------------+-----------+---------------------+
+      | actor_id | first_name | last_name | last_update         |
+      +----------+------------+-----------+---------------------+
+      |        1 | PENELOPE   | GUINESS   | 2006-02-15 04:34:33 |
+      |        2 | NICK       | WAHLBERG  | 2006-02-15 04:34:33 |
+      +----------+------------+-----------+---------------------+
+      2 rows in set (0.00 sec)
+    ```
   
   * 能够查询到新的数据库中的数据，说明迁移成功。
   
