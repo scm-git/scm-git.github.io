@@ -452,6 +452,7 @@ Query OK, 0 rows affected (0.00 sec)
   ```
   
   * 最后重新登录数据库查看是否能查询到相关的库和数据：
+  
   ```
   mysql> show databases;
   +--------------------+
@@ -468,10 +469,12 @@ Query OK, 0 rows affected (0.00 sec)
   | world              |
   +--------------------+
   9 rows in set (0.00 sec)
+  
   mysql> use sakila;
   Reading table information for completion of table and column names
   You can turn off this feature to get a quicker startup with -A
   Database changed
+  
   mysql> select * from actor limit 2;
   +----------+------------+-----------+---------------------+
   | actor_id | first_name | last_name | last_update         |
@@ -555,24 +558,24 @@ wxd@wangxiaodong:~$
 
 * 这里login-path设置为client，client是默认的选项，执行`mysql`的时候可以直接连接该配置的MySQL server， 如果有多个MySQL server需要连接，可以继续配置：
 
-```
-wxd@wangxiaodong:~$ mysql_config_editor set --login-path=wanxiaod4 --host=192.168.1.3 --user=root --password
-Enter password: 
-wxd@wangxiaodong:~$ mysql --login-path=wanxiaod4
-Welcome to the MySQL monitor.  Commands end with ; or \g.
-Your MySQL connection id is 4
-Server version: 5.7.12-log MySQL Community Server (GPL)
-
-Copyright (c) 2000, 2017, Oracle and/or its affiliates. All rights reserved.
-
-Oracle is a registered trademark of Oracle Corporation and/or its
-affiliates. Other names may be trademarks of their respective
-owners.
-
-Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
-
-mysql>
-```
+  ```
+  wxd@wangxiaodong:~$ mysql_config_editor set --login-path=wanxiaod4 --host=192.168.1.3 --user=root --password
+  Enter password: 
+  wxd@wangxiaodong:~$ mysql --login-path=wanxiaod4
+  Welcome to the MySQL monitor.  Commands end with ; or \g.
+  Your MySQL connection id is 4
+  Server version: 5.7.12-log MySQL Community Server (GPL)
+  
+  Copyright (c) 2000, 2017, Oracle and/or its affiliates. All rights reserved.
+  
+  Oracle is a registered trademark of Oracle Corporation and/or its
+  affiliates. Other names may be trademarks of their respective
+  owners.
+  
+  Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+  
+  mysql>
+  ```
 
 * 连接非client的server就需要指定`--login-path`选项
 
