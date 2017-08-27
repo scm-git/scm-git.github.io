@@ -573,7 +573,9 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 mysql>
 ```
 
+
 * 连接非client的server就需要指定`--login-path`选项
+
 
 * 可以使用`mysql_config_editor print --all`命令查看配置
 ```
