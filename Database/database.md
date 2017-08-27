@@ -554,6 +554,7 @@ wxd@wangxiaodong:~$
 ```
 
 * 这里login-path设置为client，client是默认的选项，执行`mysql`的时候可以直接连接该配置的MySQL server， 如果有多个MySQL server需要连接，可以继续配置：
+
 ```
 wxd@wangxiaodong:~$ mysql_config_editor set --login-path=wanxiaod4 --host=192.168.1.3 --user=root --password
 Enter password: 
@@ -573,9 +574,7 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 mysql>
 ```
 
-
 * 连接非client的server就需要指定`--login-path`选项
-
 
 * 可以使用`mysql_config_editor print --all`命令查看配置
 ```
