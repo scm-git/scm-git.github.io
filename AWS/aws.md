@@ -33,22 +33,22 @@
   $ aws ec2 describe-instances --query 'Reservations[*].Instances[*].[Tags[?Key==`Name`].Value,PublicIpAddress,PrivateIpAddress,KeyName]' --region us-west-1 --output table
   ```
   
-  ### 使用ec2.py获取EC2列表
-1. 下载ec2.py文件和ec2.ini文件，下载后将其放入同一个目录中
-2. 配置aws，可以使用上面配置中的第一种方式
-3. 安装python-pip
+### 使用ec2.py获取EC2列表
+* 1.下载ec2.py文件和ec2.ini文件，下载后将其放入同一个目录中
+* 2.配置aws，可以使用上面配置中的第一种方式
+* 3.安装python-pip
   
   ```
   wxd@wangxiaodong:~/main/hpbridge$ sudo apt install python-pip
   ```
   
-4. 安装boto
+* 4.安装boto
 
   ```
   wxd@wangxiaodong:~/main/hpbridge$ pip install boto
   ```
   
-5. 执行命令获取EC2列表，该命令可能需要等较长的时间才会返回，因为输出的内容较多
+* 5.执行命令获取EC2列表，该命令可能需要等较长的时间才会返回，因为输出的内容较多
   
   ```
   wxd@wangxiaodong:/etc/ansible$ ./ec2.py --help
@@ -68,7 +68,8 @@
   wxd@wangxiaodong:/etc/ansible$ ./ec2.py --list
   ```
   
-6. 可以编辑ec2.ini文件来过滤EC2，例如：
+* 6.可以编辑ec2.ini文件来过滤EC2，例如：
+
   ```
   # Retrieve only instances with (key=value) env=staging tag
   # instance_filters = tag:env=staging
