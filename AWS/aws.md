@@ -33,6 +33,37 @@
   $ aws ec2 describe-instances --query 'Reservations[*].Instances[*].[Tags[?Key==`Name`].Value,PublicIpAddress,PrivateIpAddress,KeyName]' --region us-west-1 --output table
   ```
   
+### 使用aws cli命令行工具批量添加/删除安全组inbound列表
+* 使用的命令: `aws ec2 describe-security-groups`, `authorize-security-group-ingress`, `revoke-security-group-ingress`
+* 示例脚本
+
+  ```shell
+  #!/bin/bash
+  
+  case $1 in
+  	"ap-southeast-1")
+  		REGION="ap-southeast-1"
+  		;;
+  	*)
+  		REGION="us-west-1"
+  		;;
+  esac
+  
+  echo "region:$REGION"
+  
+  SGLIST=$(aws ec2 describe-security-groups --query 'SecurityGroups[*].{ID:GroupId}' --region $REGION --output text)
+  MYIP=$(curl -XGET "http://checkip.amazonaws.com")
+  MYCIDR=${MYIP}/32
+  echo "my CIDR: $MYCIDR"
+  
+  for SG in $SGLIST
+  do
+  	echo "add ssh for $SG,$MYCIDR,$REGION"
+  	aws ec2 authorize-security-group-ingress --group-id $SG --protocol tcp --port 22 --cidr $MYCIDR --region $REGION
+  # 	aws ec2 revoke-security-group-ingress --group-id $SG --protocol tcp --port 22 --cidr $MYCIDR --region $REGION
+  done
+  ```
+  
 ### 使用ec2.py获取EC2列表
 * 1.下载ec2.py文件和ec2.ini文件，下载后将其放入同一个目录中
 * 2.配置aws，可以使用上面配置中的第一种方式
