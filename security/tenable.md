@@ -7,3 +7,11 @@ sudo /opt/nessus_agent/sbin/nessuscli agent link --key=00abcd00000efgh11111i0k22
 ```
 
 [原文链接](https://docs.tenable.com/nessus/6_10/Content/UnixAgentInstall.htm)
+
+查看nessusagent link状态
+```
+[ec2-user@ip-10-0-0-64 ~]$ sudo /opt/nessus_agent/sbin/nessuscli agent status
+[info] [agent] Linked to cloud.tenable.com:443
+[info] [agent] 0 jobs pending
+[ec2-user@ip-10-0-0-64 ~]$
+```
