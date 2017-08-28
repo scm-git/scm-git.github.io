@@ -26,11 +26,11 @@
 ### EC2
 * 列出us-west-1中的所有EC2的名称和公有IP：
   ```
-  $ aws ec2 describe-instances --query Reservations[*].Instances[*].[Tags[?Key=='Name'].Value,PublicIpAddress] --region us-west-1 --output table
+  aws ec2 describe-instances --query 'Reservations[*].Instances[*].[Tags[?Key==`Name`].Value,PublicIpAddress]' --region us-west-1 --output text
   ```
 * 列出us-west-1中的所有EC2的名称、公有IP、私有IP以及Access Key：
   ```
-  $ aws ec2 describe-instances --query Reservations[*].Instances[*].[Tags[?Key=='Name'].Value,PublicIpAddress,PrivateIpAddress,KeyName] --region us-west-1 --output table
+  $ aws ec2 describe-instances --query 'Reservations[*].Instances[*].[Tags[?Key==`Name`].Value,PublicIpAddress,PrivateIpAddress,KeyName]' --region us-west-1 --output table
   ```
   
 ### VPC AZ Subnet CIDR
