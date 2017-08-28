@@ -33,6 +33,57 @@
   $ aws ec2 describe-instances --query 'Reservations[*].Instances[*].[Tags[?Key==`Name`].Value,PublicIpAddress,PrivateIpAddress,KeyName]' --region us-west-1 --output table
   ```
   
+  ### 使用ec2.py获取EC2列表
+1. 下载ec2.py文件和ec2.ini文件，下载后将其放入同一个目录中
+2. 配置aws，可以使用上面配置中的第一种方式
+3. 安装python-pip
+  
+  ```
+  wxd@wangxiaodong:~/main/hpbridge$ sudo apt install python-pip
+  ```
+  
+4. 安装boto
+
+  ```
+  wxd@wangxiaodong:~/main/hpbridge$ pip install boto
+  ```
+  
+5. 执行命令获取EC2列表，该命令可能需要等较长的时间才会返回，因为输出的内容较多
+  
+  ```
+  wxd@wangxiaodong:/etc/ansible$ ./ec2.py --help
+  usage: ec2.py [-h] [--list] [--host HOST] [--refresh-cache]
+                [--profile BOTO_PROFILE]
+  
+  Produce an Ansible Inventory file based on EC2
+  
+  optional arguments:
+    -h, --help            show this help message and exit
+    --list                List instances (default: True)
+    --host HOST           Get all the variables about a specific instance
+    --refresh-cache       Force refresh of cache by making API requests to EC2
+                          (default: False - use cache files)
+    --profile BOTO_PROFILE, --boto-profile BOTO_PROFILE
+                          Use boto profile for connections to EC2
+  wxd@wangxiaodong:/etc/ansible$ ./ec2.py --list
+  ```
+  
+6. 可以编辑ec2.ini文件来过滤EC2，例如：
+  ```
+  # Retrieve only instances with (key=value) env=staging tag
+  # instance_filters = tag:env=staging
+  
+  # Retrieve only instances with role=webservers OR role=dbservers tag
+  # instance_filters = tag:role=webservers,tag:role=dbservers
+  
+  # Retrieve only t1.micro instances OR instances with tag env=staging
+  # instance_filters = instance-type=t1.micro,tag:env=staging
+  
+  #instance_filters = key-name=dev-test-cfn
+  #instance_filters = key-name=cloud-pie
+  instance_filters = key-name=access-sgp
+  ```
+  
 ### VPC AZ Subnet CIDR
 * CIDR：前缀IP必须是子网的最小IP，否则就是一个无效CIDR  
   有效： 10.0.0.0/24，无效：10.0.0.11/24
