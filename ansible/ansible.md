@@ -23,7 +23,6 @@ $ cat /etc/ansible/hosts
 ### AWS EC2使用方式
 AWS EC2通常是通过pem密钥文件来访问EC2实例，如果你不想每次上传本地机器的公钥到所有远程主机，可以将EC2按的密钥文件分组，使用本地的私钥来访问，我上面的配置就是根据Key来分组的，因此可以按如下方式访问
 ```
-$ ansible dev_test_cfn --private-key=/home/wxd/.ssh/dev-test-cfn.pem -u ec2-user -s -a "pwd"
 wxd@wangxiaodong:~/main/hpbridge$ ansible access_sgp --private-key=/home/wxd/.ssh/access-sgp.pem -u ec2-user -s -a "pwd"
 10.0.0.11 | SUCCESS | rc=0 >>
 /home/ec2-user
