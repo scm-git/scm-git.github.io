@@ -17,7 +17,7 @@ $ sudo apt-get install git
   ```
   然后 一路回车。**如果你的机器上已经有密钥对，则可以直接使用现有的密钥**
 
-* 3.将上一步生成的公钥(`~/.ssh/id_rsa.pub`)粘贴到GitHub中: `GitHub右上角的头像图标->settings->SSH and GPG keys`，然后点击`New SSH key`，写上标题，然后粘贴你的公钥内容，点击"Add SSH key"。
+* 3.将上一步生成的公钥(`~/.ssh/id_rsa.pub`)粘贴到GitHub中: `GitHub右上角的头像图标->settings->SSH and GPG keys`，然后点击`New SSH key`，写上标题，然后粘贴你的公钥内容，点击`Add SSH key`。
 
 * 4.将你本地的仓库关联到GitHub远程仓库，注意关联自己的仓库，以下是我的仓库地址，我的仓库你可以关联，并且可以拉去，但是不能push修改
 
