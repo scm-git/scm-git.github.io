@@ -1,0 +1,96 @@
+# This is the default ansible 'hosts' file.
+#
+# It should live in /etc/ansible/hosts
+#
+#   - Comments begin with the '#' character
+#   - Blank lines are ignored
+#   - Groups of hosts are delimited by [header] elements
+#   - You can enter hostnames or ip addresses
+#   - A hostname/ip can be a member of multiple groups
+
+# Ex 1: Ungrouped hosts, specify before any group headers.
+
+#green.example.com
+#blue.example.com
+#192.168.100.1
+#192.168.100.10
+
+# Ex 2: A collection of hosts belonging to the 'webservers' group
+
+#[webservers]
+#alpha.example.org
+#beta.example.org
+#192.168.1.100
+#192.168.1.110
+
+# If you have multiple hosts following a pattern you can specify
+# them like this:
+
+#www[001:006].example.com
+
+# Ex 3: A collection of database servers in the 'dbservers' group
+
+#[dbservers]
+#
+#db01.intranet.mydomain.net
+#db02.intranet.mydomain.net
+#10.25.1.56
+#10.25.1.57
+
+# Here's another example of host ranges, this time there are no
+# leading 0s:
+
+#db-[99:101]-node.example.com
+
+[dev_test_cfn]
+54.153.102.187
+54.215.208.166
+
+[dev_test_cfn:vars]
+ansible_ssh_private_key_file=/home/wxd/.ssh/dev-test-cfn.pem
+
+[access_sgp]
+54.183.21.72
+54.193.49.116
+54.169.4.74
+13.229.59.49
+54.169.58.193
+54.169.198.206
+13.228.49.246
+52.221.220.195
+54.169.154.229
+13.228.29.16
+54.169.2.221
+54.169.82.5
+54.255.155.2
+52.77.230.148
+54.179.183.193
+52.221.188.157
+13.229.65.74
+54.255.249.220
+54.255.234.46
+
+[access_sgp:vars]
+ansible_ssh_private_key_file=/home/wxd/.ssh/access-sgp.pem
+
+[cloud_pie]
+54.183.210.97
+54.67.92.133
+54.193.92.112
+54.193.85.213
+54.219.129.141
+54.193.62.96
+52.52.166.213
+54.193.78.209
+
+[cloud_pie:vars]
+ansible_ssh_private_key_file=/home/wxd/.ssh/cloud-pie.pem
+
+[aws:children]
+access_sgp
+dev_test_cfn
+cloud_pie
+
+[aws:vars]
+ansible_ssh_user=ec2-user
+
