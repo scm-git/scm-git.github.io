@@ -57,6 +57,4 @@ $ cat /etc/ansible/hosts
   ```
   这样就为不同的组定义了不同的private key文件，使用ansible命令的时候也可以直接对all进行操作了，不用在ansible命令中分别指定--private-key参数了，`[aws:children]`是定义一个组的子组，而最后的`[aws:vars]`定义了一个父组的变量，这样所有的子组都可以使用这个变量
 
-### 定义变量
-AWS EC2是通过私钥来访问EC2，可能不同的
 
