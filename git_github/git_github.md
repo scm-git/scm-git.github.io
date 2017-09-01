@@ -45,3 +45,36 @@ $ sudo apt-get install git
   $ git remote -v       #查看远程仓库
   ```
   
+## 遇到的奇怪问题
+今天在使用git提交的时候，出现下面的错误，不知道是什么原因:
+```
+wxd@wangxiaodong:~/main/repo_github/scm-git.github.io$ git add .
+error: insufficient permission for adding an object to repository database .git/objects
+error: websocket/websocket.md: failed to insert into database
+error: unable to index file websocket/websocket.md
+fatal: 添加文件失败
+wxd@wangxiaodong:~/main/repo_github/scm-git.github.io$ git add websocket/websocket.md 
+error: insufficient permission for adding an object to repository database .git/objects
+error: websocket/websocket.md: failed to insert into database
+error: unable to index file websocket/websocket.md
+fatal: 添加文件失败
+wxd@wangxiaodong:
+```
+后来通过将websocket.md改为websocket2.md后就可以顺利提交了，提交后又将名字改回来，就可以了，不知道为什么：
+```
+wxd@wangxiaodong:~/main/repo_github/scm-git.github.io$ git status
+位于分支 master
+您的分支与上游分支 'origin/master' 一致。
+要提交的变更：
+  （使用 "git reset HEAD <file>..." 撤出暂存区）
+
+        修改：     README.md
+        重命名：   websocket/websocket2.md -> websocket/websocket.md
+
+wxd@wangxiaodong:~/main/repo_github/scm-git.github.io$ git commit -m "update websocket"
+[master a638499] update websocket
+ 2 files changed, 1 insertion(+), 1 deletion(-)
+ rename websocket/{websocket2.md => websocket.md} (100%)
+wxd@wangxiaodong:~/main/repo_github/scm-git.github.io$
+```
+  
