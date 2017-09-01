@@ -17,6 +17,6 @@
 * Node.js
 * [Security](./security/tenable.md)
 * Spring
-* [WebSocket](./websocket/websocket.md)
+* [WebSocket](websocket/websocket2.md)
 * Windows 10
 
