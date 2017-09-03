@@ -12,10 +12,10 @@
 * [STOMP Over WebSocket](http://jmesnil.net/stomp-websocket/doc/websocket2.md)
 
 ### SockJS
-[GitHub上关于-SockJS-node+Load Balancer的说明](https://github.com/sockjs/sockjs-node#websocket-compatible-load-balancer)
+* [GitHub上关于-SockJS-node+Load Balancer的说明](https://github.com/sockjs/sockjs-node#websocket-compatible-load-balancer)
 
 ### 使用RabbitMQ作为broker的WebSocket实现
-[GitHub地址](https://github.com/itzg/websocket-stomp-user-queues)
+* [GitHub地址](https://github.com/itzg/websocket-stomp-user-queues)
 
 ### WebSocket无法设置自定义header问题：
 由于WebSocket无法设置自定义的header，因此如果在负载均衡器(如HA)中想要根据某个值做后端路由是不可行的，可以将参数放到url中来实现，下面通过几个截图来查看websocket设置自定义header问题：
