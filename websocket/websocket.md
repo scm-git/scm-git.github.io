@@ -14,3 +14,21 @@
 ### SockJS
 [GitHub上关于-SockJS-node+Load Balancer的说明](https://github.com/sockjs/sockjs-node#websocket-compatible-load-balancer)
 
+### WebSocket无法设置自定义header问题：
+由于WebSocket无法设置自定义的header，因此如果在负载均衡器(如HA)中想要根据某个值做后端路由是不可行的，可以将参数放到url中来实现，下面通过几个截图来查看websocket设置自定义header问题：
+
+我的前端代码中有如下设置header的部分：
+```javascript
+var socket = new SockJS('/xxxx-backend?tableId=' + tableId);
+stompClient = Stomp.over(socket);
+
+// 指定座位的direction: TODO
+stompClient.connect({roomId:roomId,tableId:tableId,userId:userId}, function (frame) {
+    console.log('Connected: ' + frame);
+    subscribeTable(tableId,userId);
+});
+```
+然而，从浏览器中却无法看到这几个header参数：不管是websocket的info端点还是upgrade的websocket都没有：
+![info端点](./websocket2.png)
+![websocket端点](./websocket3.png)
+

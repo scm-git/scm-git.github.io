@@ -100,9 +100,9 @@ HAProxy使用Linux的rsyslog服务来记录日志，因此需要配置haproxy和
   $ sudo service rsyslog restart
   ```
 
-### 配置HAProxy作为WebSocket的负载均衡器以及后端路由介绍
+### 配置HAProxy作为WebSocket的负载均衡器
 HAProxy配置WebSocket负载均衡，
-**WebSocket无法设置请求header，因此如果想通过header的某个参数来来做路由是不可行的；便可以使用将参数放入url中，通过url_param来获取**
+**WebSocket无法设置请求header，因此如果想通过header的某个参数来来做路由是不可行的；但是可以将参数放入url中，通过url_param来获取该参数，从而可以路由到某一固定的后端服务器**
 
   ```
   global
@@ -207,3 +207,59 @@ HAProxy配置WebSocket负载均衡，
   	server websrv1 localhost:7070 maxconn 30000 weight 10 cookie websrv1 check
   	server websrv2 localhost:7071 maxconn 30000 weight 10 cookie websrv2 check
   ```
+  
+### HAProxy的后端路由配置介绍：
+* roundrobin    #轮训
+* static-rr             #对于静态资源没有权重的限制
+* leastconn         #路由到最少连接数的server
+* first                     #路由到第一个可用的server
+* source                #根据source IP的hash值
+* uri                          #根据uri进行路由，如果不指定whole参数，则排除url查询参数(即?之前的部分)，反之则包括url查询参数
+* url_param         #根据获取的查询参数值进行路由(如上例中的tableId)
+* hdr(<name>)   #根据header中某个参数值，注意websocket设定自定义参数，因此也无法捕获
+* rdp-cookie/rdp-cookie(<name>)
+<arguments>
+  
+### 关于使用Nginx和Apache作为WebSocket的load balancer问题：
+* Nginx和Apache都不适合作为WebSocket的前端负载均衡器，虽然Nginx官方已经宣布从1.10版本开始已经可以支持WebSocket，但是我简单测试了以下，配置起来并不容易，如下是按照官网的方式配置的，但是我的服务却无法正常工作：
+
+  在http模块中添加如下配置：
+  ```
+  map $http_upgrade $connection_upgrade {
+  		default upgrade;
+  		''	close;
+  	}
+  
+  upstream mahjongserver {
+  	server localhost:7070;
+  	server localhost:7071;
+  }
+  
+  server{
+  	listen 7000;
+  	server_name localhost;
+  	location / {
+  		proxy_pass http://mahjongserver;
+  		proxy_http_version 1.1;
+  		proxy_set_header Upgrade $http_upgrade;
+  		proxy_set_header Connection $connection_upgrade;
+  	}
+  	
+  }
+  ```
+  
+  配置完成后访问nginx的端口，当触发websocket连接时，服务端会抛出如下错误。
+  
+  ```
+  2017-09-03 22:28:06.827  INFO 893 --- [MessageBroker-2] o.apache.coyote.http11.Http11Processor   : An error occurred in processing while on a non-container thread. The connection will be closed immediately
+  
+  java.io.IOException: 断开的管道
+  	at sun.nio.ch.FileDispatcherImpl.write0(Native Method) ~[na:1.8.0_144]
+  	at sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:47) ~[na:1.8.0_144]
+  	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:93) ~[na:1.8.0_144]
+  	at sun.nio.ch.IOUtil.wdrite(IOUtil.java:65) ~[na:1.8.0_144]
+  	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:471) ~[na:1.8.0_144]
+  ```
+  
+  当然也可能是某些配置不对，导致nginx不能方便的作为websocket的load balancer，但是haproxy却可以很轻松的配置成功，以下是github中一个截图，[原文地址:https://github.com/sockjs/sockjs-node](https://github.com/sockjs/sockjs-node)
+  ![WebSocket Load Balancing](../websocket/websocket1.png)
