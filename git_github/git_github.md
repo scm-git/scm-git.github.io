@@ -1,6 +1,6 @@
 # [王孝东的个人空间](https://scm-git.github.io/)
 ## Git
-### Install Ansible on Ubuntu
+### Install git on Ubuntu
 ```
 $ sudo apt-get install git
 ```
@@ -43,6 +43,7 @@ $ sudo apt-get install git
   $ git remote rm origin        #如果你想将远程仓库地址切换到新的地址，可能需要先删除原有的远程仓库地址
   $ git branch --set-upstream-to origin/master master       #重新设置了远程仓库之后，需要对原有本地分支关联到新的远程仓库分支
   $ git remote -v       #查看远程仓库
+  $ git show commit-hast:filename   #查看某次提交的文件内容
   ```
   
 ## 遇到的奇怪问题
