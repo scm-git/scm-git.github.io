@@ -17,6 +17,8 @@
 ### 使用RabbitMQ作为broker的WebSocket实现
 * [GitHub地址](https://github.com/itzg/websocket-stomp-user-queues)
 
+### 非常好的文章：[How HTML5 Web Sockets Interact With Proxy Servers](https://www.infoq.com/articles/Web-Sockets-Proxy-Servers)
+
 ### STOMP WebSocket无法设置自定义header问题：
 由于STOMP WebSocket无法设置自定义的header，因此如果在负载均衡器(如HA)中想要根据某个值做后端路由是不可行的，可以将参数放到url中来实现，下面通过几个截图来查看websocket设置自定义header问题：
 
