@@ -219,6 +219,7 @@ HAProxy配置WebSocket负载均衡，
 * hdr(<name>)   #根据header中某个参数值，注意websocket设定自定义参数，因此也无法捕获
 * rdp-cookie/rdp-cookie(<name>)
 * <arguments>
+* [路由算法介绍](http://www.cnblogs.com/aaa103439/p/3537163.html)
 
 ### 关于使用Nginx和Apache作为WebSocket的load balancer问题：
 * Nginx和Apache都不适合作为WebSocket的前端负载均衡器，虽然Nginx官方已经宣布从1.10版本开始已经可以支持WebSocket，但是我简单测试了以下，配置起来并不容易，如下是按照官网的方式配置的，但是我的服务却无法正常工作：
