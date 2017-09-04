@@ -38,10 +38,10 @@ for SG in $SGLIST
 do
     if [[ $TYPE == "authorize" ]]; then
 	    echo "authorize ssh for $SG,$CIDR,$REGION"
-	    #	aws ec2 authorize-security-group-ingress --group-id $SG --protocol tcp --port 22 --cidr $CIDR --region $REGION
+	    aws ec2 authorize-security-group-ingress --group-id $SG --protocol tcp --port 22 --cidr $CIDR --region $REGION
 	elif [[ $TYPE == "revoke" ]]; then
         echo "revoke ssh for $SG,$CIDR,$REGION"
-        #	aws ec2 revoke-security-group-ingress --group-id $SG --protocol tcp --port 22 --cidr $CIDR --region $REGION
+        aws ec2 revoke-security-group-ingress --group-id $SG --protocol tcp --port 22 --cidr $CIDR --region $REGION
     else
         echo "invalid type: should be [authorize | revoke]"
         exit 1
