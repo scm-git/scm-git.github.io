@@ -578,6 +578,9 @@ wxd@wangxiaodong:~$
   ```
 
 * 连接非client的server就需要指定`--login-path`选项
+```
+$ mysql --login-path=wanxiaod4
+```
 
 * 可以使用`mysql_config_editor print --all`命令查看配置
 ```
