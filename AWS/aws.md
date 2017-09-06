@@ -115,6 +115,18 @@
   #instance_filters = key-name=cloud-pie
   instance_filters = key-name=access-sgp
   ```
+
+* 7.编辑ec2.ini文件，过滤没有使用的region，否则ec2.py执行的时候会check所有的region，会导致执行时间特别长：
+
+  ```
+  #regions = all 
+  regions = us-west-1,ap-southeast-1
+  
+  #rds = False
+  #elasticache = False
+  cache_max_age = 60
+  ```
+  以上修改将regions指定到us-west-1和ap-southeast-1两个region；注释掉rds和elasticache，表示不check这两种实例；另外将缓存时间设置为1分钟
   
 ### VPC AZ Subnet CIDR
 * CIDR：前缀IP必须是子网的最小IP，否则就是一个无效CIDR  
