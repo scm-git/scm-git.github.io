@@ -1,5 +1,10 @@
 # [王孝东的个人空间](https://scm-git.github.io/)
 ## AWS
+
+### AWS IAM
+* [深入理解IAM和访问控制](http://www.infoq.com/cn/articles/aws-iam-dive-in)
+* [AWS使用tag进行某些资源隔离](http://cloudrender.blog.51cto.com/2091666/1946573)
+
 ### AWS 命令行配置
   以下三种方式选一即可:
 1. 命令行选项  
@@ -142,5 +147,22 @@
   Must be a valid CIDR block. Did you mean 10.0.1.192/26?
 * 同一个AZ中的主机间的ping速率为0.4ms; 不同AZ中的主机间的ping速率为1.2ms
 * EC2之间无法ping通的原因通常是安全组中没有设置ICMP的入栈规则，因为ping命令使用的是ICMP协议
+
+### AWS 一般参考
+* [AWS 区域和终端节点](http://docs.aws.amazon.com/zh_cn/general/latest/gr/rande.html)
+* [AWS 安全凭证](http://docs.aws.amazon.com/zh_cn/general/latest/gr/aws-security-credentials.html)
+* [Amazon 资源名称 (ARN) 和 AWS 服务命名空间](http://docs.aws.amazon.com/zh_cn/general/latest/gr/aws-arns-and-namespaces.html)
+* [签署 AWS API 请求](http://docs.aws.amazon.com/zh_cn/general/latest/gr/signing_aws_api_requests.html)
+* [AWS 服务限制](http://docs.aws.amazon.com/zh_cn/general/latest/gr/aws_service_limits.html)
+* [需要 AWS 账户根用户的 AWS 任务](http://docs.aws.amazon.com/zh_cn/general/latest/gr/aws_tasks-that-require-root.html)
+* [AWS 的 IP 地址范围](http://docs.aws.amazon.com/zh_cn/general/latest/gr/aws-ip-ranges.html)
+* [AWS 中的错误重试和指数退避](http://docs.aws.amazon.com/zh_cn/general/latest/gr/api-retries.html)
+* [AWS 命令行工具](http://docs.aws.amazon.com/zh_cn/general/latest/gr/GetTheTools.html)
+* [AWS 词汇表](http://docs.aws.amazon.com/zh_cn/general/latest/gr/glos-chap.html)
+
+### AWS 安全凭证
+* [需要AWS账户根用户的AWS任务](http://docs.aws.amazon.com/zh_cn/general/latest/gr/aws_tasks-that-require-root.html)
+  ![根任务截图](./aws_root_tast.png)
+
   
 
