@@ -147,6 +147,7 @@
   Must be a valid CIDR block. Did you mean 10.0.1.192/26?
 * 同一个AZ中的主机间的ping速率为0.4ms; 不同AZ中的主机间的ping速率为1.2ms
 * EC2之间无法ping通的原因通常是安全组中没有设置ICMP的入栈规则，因为ping命令使用的是ICMP协议
+* [VPC相关笔记](./aws-vpc.md)
 
 ### AWS 一般参考
 * [AWS 区域和终端节点](http://docs.aws.amazon.com/zh_cn/general/latest/gr/rande.html)
