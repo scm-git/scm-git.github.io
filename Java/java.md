@@ -16,6 +16,12 @@ automatically with this package.
 ```
 如果Oracle JDK8不是默认的JDK，可以安装上面提示中的oracle-java8-set-default
 
+## Install Oracle JDK8 on AMI
+```
+[ec2-user@ip-10-0-0-10 ~]$ wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/jdk-8u144-linux-x64.rpm"
+[ec2-user@ip-10-0-0-10 ~]$ sudo rpm -ivh jdk-8u144-linux-x64.rpm
+```
+
 ## Java
 * [QRCodeUtil](./QRCode/QRCode.md)
 * [List](./java-List.md)

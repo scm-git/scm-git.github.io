@@ -132,6 +132,14 @@
   cache_max_age = 60
   ```
   以上修改将regions指定到us-west-1和ap-southeast-1两个region；注释掉rds和elasticache，表示不check这两种实例；另外将缓存时间设置为1分钟
+
+* 8.通过命令行添加ssh入站允许：
+  
+  ```
+  aws ec2 describe-security-groups
+  aws ec2 authorize-security-group-ingress --group-id sg-5da90d3b --protocol tcp --port 22 --cidr 106.87.20.57/32
+  ```
+  首先查看要修改的安全组ID，然后复制到`authorize-security-group-ingress`中
   
 ### VPC AZ Subnet CIDR
 * CIDR：前缀IP必须是子网的最小IP，否则就是一个无效CIDR  

@@ -16,6 +16,7 @@
 * [Network](./Network/network.md)
 * Nginx
 * Node.js
+* [Redis](./redis/redis.md)
 * [Security](./security/tenable.md)
 * [Spring](./spring/spring.md)
 * [WebSocket](websocket/websocket.md)
