@@ -20,7 +20,9 @@ automatically with this package.
 ```
 [ec2-user@ip-10-0-0-10 ~]$ wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/jdk-8u144-linux-x64.rpm"
 [ec2-user@ip-10-0-0-10 ~]$ sudo rpm -ivh jdk-8u144-linux-x64.rpm
+[ec2-user@ip-10-0-0-10 ~]$ jps -v
 ```
+安装完成之后，如果不知道安装目录在什么地方，可以使用`jps -v`查看
 
 ## Java
 * [QRCodeUtil](./QRCode/QRCode.md)
