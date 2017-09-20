@@ -10,6 +10,7 @@
 * [Java](./Java/java.md)
 * Javascript
 * [Jenkins](./Jenkins/jenkins.md)
+* [JPA](./jpa/jpa.md)
 * Linux
 * Maven
 * MyBatis
