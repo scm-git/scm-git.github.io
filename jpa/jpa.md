@@ -33,3 +33,17 @@
   * create-drop: drop the schema at the end of the session
   * none: 生产环境应该用none
   * 对于hsqldb, h2, derby默认值为create-drop, 其他数据库的默认值为none
+* 对于CreateDate或UpdateDate这样的字段，如果想直接使用数据库的时间可以用如下方法：
+
+  ```
+      @CreationTimestamp
+      @Temporal(TemporalType.TIMESTAMP)
+      @Column(name="CREATE_DATE", insertable = false, updatable = false)
+      private Date createDate;
+  
+      @UpdateTimestamp
+      @Temporal(TemporalType.TIMESTAMP)
+      @Column(name="UPDATE_DATE", insertable = false, updatable = false)
+      private Date updateDate;
+  ```
+  Date需要使用`java.util.Date`

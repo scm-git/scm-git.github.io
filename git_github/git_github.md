@@ -44,6 +44,7 @@ $ sudo apt-get install git
   $ git branch --set-upstream-to origin/master master       #重新设置了远程仓库之后，需要对原有本地分支关联到新的远程仓库分支
   $ git remote -v       #查看远程仓库
   $ git show commit-hast:filename   #查看某次提交的文件内容
+  $ git clone svn http://192.168.1.100/svn/myproject    #将svn转换为git，后续操作时就可以不再需要svn
   ```
   
 ## 遇到的奇怪问题
