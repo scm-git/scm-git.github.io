@@ -58,6 +58,7 @@ $ sudo apt-get install git
   $ git checkout -- <file>       #删除某各文件的所有修改，慎用此操作
   $ git checkout -- .       #删除所有修改，慎用此操作，需要确保所有的修改都需要丢弃时才使用
   ```
+  [Git常用命令](http://www.cnblogs.com/cspku/articles/Git_cmds.html)
   
 ## 遇到的奇怪问题
 今天在使用git提交的时候，出现下面的错误，不知道是什么原因:
