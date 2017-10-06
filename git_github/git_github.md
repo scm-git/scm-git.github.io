@@ -46,6 +46,12 @@ $ sudo apt-get install git
   $ git remote -v       #查看远程仓库
   $ git show commit-hast:filename   #查看某次提交的文件内容
   $ git clone svn http://192.168.1.100/svn/myproject    #将svn转换为git，后续操作时就可以不再需要svn
+  $ git show $commitId      #查看某测提交的内容, $commitId是提交的hash code
+  $ git co -- <file>        #抛弃工作区的修改
+  $ git co .        #抛弃工作区的修改
+  $ git stash       #将修改保存到暂存区
+  $ git stash pop   #将暂存区的修改恢复到工作区
+  $ git stash  list/show    显示暂存区
   ```
   
 ## 遇到的奇怪问题
