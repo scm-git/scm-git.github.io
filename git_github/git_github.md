@@ -52,6 +52,11 @@ $ sudo apt-get install git
   $ git stash       #将修改保存到暂存区
   $ git stash pop   #将暂存区的修改恢复到工作区
   $ git stash  list/show    显示暂存区
+  $ git reset -- <file>     #从暂存区恢复到工作文件
+  $ git reset -- .              #从暂存区恢复到工作文件
+  $ git rest --hard         #恢复最近一次提交过的状态
+  $ git checkout -- <file>       #删除某各文件的所有修改，慎用此操作
+  $ git checkout -- .       #删除所有修改，慎用此操作，需要确保所有的修改都需要丢弃时才使用
   ```
   
 ## 遇到的奇怪问题
