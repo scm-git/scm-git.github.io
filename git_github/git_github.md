@@ -57,6 +57,8 @@ $ sudo apt-get install git
   $ git rest --hard         #恢复最近一次提交过的状态
   $ git checkout -- <file>       #删除某各文件的所有修改，慎用此操作
   $ git checkout -- .       #删除所有修改，慎用此操作，需要确保所有的修改都需要丢弃时才使用
+  $ git log -- path/to/folder   #查看某个目录下的commit日志
+  $ git log -- path/to/folder/* #查看某个目录下的commit日志
   ```
   [Git常用命令](http://www.cnblogs.com/cspku/articles/Git_cmds.html)
   
