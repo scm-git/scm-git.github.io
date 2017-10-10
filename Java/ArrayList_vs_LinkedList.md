@@ -109,6 +109,7 @@ public class ListTest {
 * **从最后一个表中可以看出：不管List中元素多少，使用Iterator的方式来遍历List，两个list的性能是一样的，且都非常好，所有使用Iterator的方式遍历总是没错的。**
 
 有以上结论之后，再来看一下核心源码：这里只贴出add(index,e)和get(index)相关源码，因为主要分析添加元素和使用index遍历时性能差异的原因：
+
 ArrayList.java
 ```java
 public class ArrayList<E> extends AbstractList<E>
@@ -147,7 +148,7 @@ public class ArrayList<E> extends AbstractList<E>
     }
 }
 ```
-从以上ArrayList的代码可以看出，如果添加元素到末尾，只需要两边，1：扩容数组，2：将添加元素赋值给数组的末尾元素；对于添加元素到指定位置则需要多加一步，即将指定位置后面的元素复制到指定位置的下一个位置。
+从以上ArrayList的代码可以看出，如果添加元素到末尾，只需要两步，1：扩容数组，2：将添加元素赋值给数组的末尾元素；对于添加元素到指定位置则需要多加一步：**将指定位置后面的元素复制到指定位置的下一个位置。这也是导致添加到指定位置性能底下的原因**
 
 LinkedList.java
 ```java
@@ -251,4 +252,4 @@ public class LinkedList<E>
    * 将当前元素的last的指向null
    * `l.next = newNode;`将之前的last元素的next指向当前元素
 4. 对于`LinkedList.add(index, e)`方法：如果index不等于size，使用`linkBefore(e, succ)`方法；该方法多一个查找index节点的操作，找到节点之后，修改相应的previous以及next即可；不需要移动元素位置
-5. 对于`E get(index)`操作，之前说到LinkedList的get操作性能较ArrayList低，从源码中可以看到，他使用`Node node(index)`查找这个节点，node(index)会首先判断index是落在size的前半段还是后半段，如果是前半段，则从first节点开始查找，如果是后半段则从last节点开始查找；从这个地方也可以看出，通过get(index)时，需要遍历多次才能找到相应的节点，尤其是如果该index靠近list的中间部分时，遍历次数最多(因为只能从开始节点或者末尾节点开始遍历)：这里有一个测试数据可以参考一下：当LinkedList中有一个100W个元素时，get第50W个元素需要50毫秒左右，而get首尾的元素可以为0-1毫秒
+5. 对于`E get(index)`操作，之前说到LinkedList的get操作性能较ArrayList低，从源码中可以看到，他使用`Node node(index)`查找这个节点，node(index)会首先判断index是落在size的前半段还是后半段，如果是前半段，则从first节点开始查找，如果是后半段则从last节点开始查找；从这个地方也可以看出，通过get(index)时，需要遍历多次才能找到相应的节点，尤其是如果该index靠近list的中间部分时，遍历次数最多(因为只能从开始节点或者末尾节点开始遍历)：这里有一个测试数据可以参考一下：当LinkedList中有一个1000W个元素时，get第500W个元素需要50毫秒左右，而get首尾的元素可以为0-1毫秒
