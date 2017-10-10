@@ -99,7 +99,9 @@ public class ListTest {
 * JDK_1.8.0_66
 
 得到的结果如下图：
+
 ![ArrayList&LinkedList性能对比](./ArrayList-LinkedList.png)
+
 从上图中可以得出以下结论：
 * 从第一个表可以看出：对于List.add(e) -- 添加元素到末尾；不管多少元素，性能都是一样的。
 * 从第二个表可以看出：对于List.add(index,e)方法 -- 添加元素到某个特定位置(本次测试的每次添加到第一个元素，即：list.add(0, e))时，LinkedList的性能明显高于ArrayList，并且LinkedList的性能跟插入元素到末尾一样。
