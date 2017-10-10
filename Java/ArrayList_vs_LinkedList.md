@@ -106,7 +106,7 @@ public class ListTest {
 * 从第一个表可以看出：对于List.add(e) -- 添加元素到末尾；不管多少元素，性能都是一样的。
 * 从第二个表可以看出：对于List.add(index,e)方法 -- 添加元素到某个特定位置(本次测试的每次添加到第一个元素，即：list.add(0, e))时，LinkedList的性能明显高于ArrayList，并且LinkedList的性能跟插入元素到末尾一样。
 * 从第三个表可以看出：当使用index来遍历list时，ArrayList的性能高于LinkedList
-* **从最后一个表中可以看出：不管List中元素多少，使用Iterator的方式来遍历List，两个list的性能是一样的，且都非常好，所有使用Iterator的方式遍历总是没错的。**
+* **从最后一个表中可以看出：不管List中元素多少，使用Iterator的方式来遍历List，两个list的性能是一样的，且都非常好，所以使用Iterator的方式遍历总是没错的。**
 
 有以上结论之后，再来看一下核心源码：这里只贴出add(index,e)和get(index)相关源码，因为主要分析添加元素和使用index遍历时性能差异的原因：
 
