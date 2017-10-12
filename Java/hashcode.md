@@ -23,5 +23,5 @@
      在一个Java应用中，任何时候调用hashCode()，都需要返回相同的值
      ```
      另外需要认识到一点：hash code并不是一个unique ID，它是可能重复的，也就是hash碰撞。想象这样一个场景：当一个对象object1得到了hash code后被GC移动到一个新的内存地址，现在有一个新的对象object2分配到object1原来的位置上了，再调用object2的hashCode()，这个hashCode是根据object1的初始地址得出的，而object1也缓存这个地址得出的hashcode，所以可能会出现object1和object2的hashcode一样的情况
-      
+
 2. 
