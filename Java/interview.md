@@ -1,6 +1,7 @@
 # [王孝东的个人空间](https://scm-git.github.io/)
 ## Java面试题总结
 * [集合类ArrayList & LinkedList区别](./ArrayList_vs_LinkedList.md)
+* hash code & hashCode()
 * HashMap原理
 * ThreadLocal
 * [synchronized & static method & Class对象](./synchronized.md)
