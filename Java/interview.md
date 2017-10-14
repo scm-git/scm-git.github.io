@@ -2,7 +2,7 @@
 ## Java面试题总结
 * [集合类ArrayList & LinkedList区别](./ArrayList_vs_LinkedList.md)
 * [hash code & hashCode()](./hashcode.md)
-* [HashMap原理](./hashcode.md)
+* [HashMap原理](./HashMap.md)
 * ThreadLocal
 * [synchronized & static method & Class对象](./synchronized.md)
 * GC&Full GC
