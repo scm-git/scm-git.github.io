@@ -15,7 +15,7 @@
 * [Maven](./maven/maven.md)
 * [MyBatis](./mybatis/mybatis.md)
 * [Network](./Network/network.md)
-* Nginx
+* [Nginx](./nginx/nginx.md)
 * Node.js
 * [Redis](./redis/redis.md)
 * [Security](./security/tenable.md)
