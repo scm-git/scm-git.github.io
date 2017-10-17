@@ -11,9 +11,9 @@
 * Javascript
 * [Jenkins](./Jenkins/jenkins.md)
 * [JPA](./jpa/jpa.md)
-* Linux
-* Maven
-* MyBatis
+* [Linux](./linux/linux.md)
+* [Maven](./maven/maven.md)
+* [MyBatis](./mybatis/mybatis.md)
 * [Network](./Network/network.md)
 * Nginx
 * Node.js
