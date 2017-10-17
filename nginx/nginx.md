@@ -82,60 +82,6 @@
    $ sudo yum install nginx
    ```
    
-   实际命令如下：
-   
-   ```bash
-   [ec2-user@ip-10-0-0-28 yum.repos.d]$ sudo yum install nginx
-   Loaded plugins: amazon-id, rhui-lb, search-disabled-repos
-   nginx                                                                                                                                                                 | 2.9 kB  00:00:00
-   nginx/x86_64/primary_db                                                                                                                                               |  18 kB  00:00:00
-   Resolving Dependencies
-   --> Running transaction check
-   ---> Package nginx.x86_64 1:1.10.2-1.el7.ngx will be installed
-   --> Finished Dependency Resolution
-   
-   Dependencies Resolved
-   
-   =======================================================================================
-    Package              Arch            Version                Repository         Size
-   =======================================================================================
-   Installing:
-    nginx                x86_64          1:1.10.2-1.el7.ngx     nginx              643 k
-   
-   Transaction Summary
-   =======================================================================================
-   Install  1 Package
-   
-   Total download size: 643 k
-   Installed size: 2.2 M
-   Is this ok [y/d/N]: y
-   Downloading packages:
-   nginx-1.10.2-1.el7.ngx.x86_64.rpm
-   Running transaction check
-   Running transaction test
-   Transaction test succeeded
-   Running transaction
-     Installing : 1:nginx-1.10.2-1.el7.ngx.x86_64
-   ----------------------------------------------------------------------
-   
-   Thanks for using nginx!
-   
-   Please find the official documentation for nginx here:
-   * http://nginx.org/en/docs/
-   
-   Commercial subscriptions for nginx are available on:
-   * http://nginx.com/products/
-   
-   ----------------------------------------------------------------------
-     Verifying  : 1:nginx-1.10.2-1.el7.ngx.x86_64
-   
-   Installed:
-     nginx.x86_64 1:1.10.2-1.el7.ngx
-   
-   Complete!
-   [ec2-user@ip-10-0-0-28 yum.repos.d]$
-   ```
-   
 3. 配置nginx，配置文件:`/etc/nginx/nginx.conf`,`/etc/nginx/conf.d/default.conf`;修改的地方主要在default.conf文件中:
    ```bash
    [ec2-user@ip-10-0-0-28 conf.d]$ ll
