@@ -8,7 +8,7 @@
 * [HAProxy](./haproxy/haproxy.md)
 * [IDE](./IDE/idea.md)
 * [Java](./Java/java.md)
-* Javascript
+* [Javascript](./javascript/javascript.md)
 * [Jenkins](./Jenkins/jenkins.md)
 * [JPA](./jpa/jpa.md)
 * [Linux](./linux/linux.md)
