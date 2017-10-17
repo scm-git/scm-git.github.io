@@ -81,7 +81,9 @@
    ```bash
    $ sudo yum install nginx
    ```
+   
    实际命令如下：
+   
    ```bash
    [ec2-user@ip-10-0-0-28 yum.repos.d]$ sudo yum install nginx
    Loaded plugins: amazon-id, rhui-lb, search-disabled-repos
@@ -95,10 +97,10 @@
    Dependencies Resolved
    
    =======================================================================================
-    Package                         Arch                             Version                                      Repository                             Size
+    Package              Arch            Version                Repository         Size
    =======================================================================================
    Installing:
-    nginx                           x86_64                           1:1.10.2-1.el7.ngx                   nginx                                      643 k
+    nginx                x86_64          1:1.10.2-1.el7.ngx     nginx              643 k
    
    Transaction Summary
    =======================================================================================
@@ -131,7 +133,6 @@
      nginx.x86_64 1:1.10.2-1.el7.ngx
    
    Complete!
-   
    [ec2-user@ip-10-0-0-28 yum.repos.d]$
    ```
    
