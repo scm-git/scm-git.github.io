@@ -1,7 +1,7 @@
 # [王孝东的个人空间](https://scm-git.github.io/)
-##MyBatis
+## MyBatis
 
-###MyBatis Generator with maven plugin
+### MyBatis Generator with maven plugin
 在maven中引入MyBatis Generator插件，在命令行中直接执行命令即可生产MyBatis的相关DAO，Model以及Mapper文件
 ```xml
 <project>
@@ -91,7 +91,7 @@ MybatisGenerator.xml文件示例：
 </generatorConfiguration>
 ```
 
-###MyBatis常用技巧
+### MyBatis常用技巧
 * 1.使用用like查询时，需要自己拼"%"作为前后的模糊匹配
   * 如果使用自带的criteria， 则可以如下： UserCriteria.createCriteria.andNameLike("%"+name+"%"); 然后使用UserDAO.selectByCriteria()方法查询
   * 如果使用map等自己构造的参数，并使用自己编写的SQL语句查询时，传入的参数同样需要先拼接好占位符"%",例如方法：`UserDAO.selectByUserName(@Param("userName") String userName);`则传入的userName的值应该如下：

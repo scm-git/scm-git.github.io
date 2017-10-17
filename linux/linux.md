@@ -1,5 +1,5 @@
 # [王孝东的个人空间](https://scm-git.github.io/)
-##Linux
+## Linux
 
 * 后台执行命令：nohup
   ```bash
