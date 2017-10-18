@@ -1,6 +1,8 @@
 # [王孝东的个人空间](https://scm-git.github.io/)
 ## Linux
 
+* [常用的ssh命令](http://www.open-open.com/lib/view/open1357655816512.html)
+
 * 后台执行命令：nohup
   ```bash
   $ nohup ./check-tomcat.sh > /dev/null 2>&1 &
