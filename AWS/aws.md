@@ -28,6 +28,9 @@
   aws_secret_access_key=Your AWS Access Secret Key
   ```
 
+### AWS 编程
+[获取AWS的Client的工具类示例代码](aws-java-credential.md),该示例代码支持读取机器本地的credential文件以及AWS_ACCESS_KEY_ID两种方式进行认证。
+
 ### EC2
 * 列出us-west-1中的所有EC2的名称和公有IP：
   ```
