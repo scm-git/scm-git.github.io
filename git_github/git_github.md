@@ -59,6 +59,10 @@ $ sudo apt-get install git
   $ git checkout -- .       #删除所有修改，慎用此操作，需要确保所有的修改都需要丢弃时才使用
   $ git log -- path/to/folder   #查看某个目录下的commit日志
   $ git log -- path/to/folder/* #查看某个目录下的commit日志
+  $ git tag -l      #查看所有tag
+  $ git tag --help      #查看git tag帮助
+  $ git tag v1.0        #创建一个tag，名为v1.0
+  $ git push origin v1.0    #将tag v1.0推送到server
   ```
   [Git常用命令](http://www.cnblogs.com/cspku/articles/Git_cmds.html)
   
