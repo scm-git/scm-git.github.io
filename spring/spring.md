@@ -3,3 +3,6 @@
 
 ### Spring MVC
 1. [数据绑定](./springmvc.md)
+
+### Spring Boot
+1. [yaml配置复杂对象](./springboot.md)
