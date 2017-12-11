@@ -83,3 +83,11 @@
   ONBOOT=no
   ```
   将最后一行改为yes, `ifcfg-ens33`这个文件可以根据ifconfig得到，查看网络接口名称
+  
+* Open ports 80 and 8080 on server firewall using the below command: In CentOS
+  ```bash
+  firewall-cmd –-zone=public –-add-port=8080/tcp -–permanent
+  firewall-cmd –-zone=public –-add-service=http –-permanent
+  firewall-cmd –-reload  
+  ```
+  
