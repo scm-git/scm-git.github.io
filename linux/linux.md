@@ -58,4 +58,28 @@
   $ ssh -o StrictHostKeyChecking=no
   ```
 
-* 
+* ssh-copy-id复制当前主机的公钥到目标机器
+  ```bash
+  $ ssh-copy-id -i ~/.ssh/id_rsa.pub wxd@local_centos2
+  ```
+  
+* 修改centos网络配置：
+  ```
+  $ vi /etc/sysconfig/network-script/ifcfg-ens33
+  TYPE=Ethernet
+  PROXY_METHOD=none
+  BROWSER_ONLY=no
+  BOOTPROTO=dhcp
+  DEFROUTE=yes
+  IPV4_FAILURE_FATAL=no
+  IPV6INIT=yes
+  IPV6_AUTOCONF=yes
+  IPV6_DEFROUTE=yes
+  IPV6_FAILURE_FATAL=no
+  IPV6_ADDR_GEN_MODE=stable-privacy
+  NAME=ens33
+  UUID=22c502c7-0742-4652-9b78-37e71d847f06
+  DEVICE=ens33
+  ONBOOT=no
+  ```
+  将最后一行改为yes, `ifcfg-ens33`这个文件可以根据ifconfig得到，查看网络接口名称
