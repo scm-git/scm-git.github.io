@@ -24,6 +24,12 @@ automatically with this package.
 ```
 安装完成之后，如果不知道安装目录在什么地方，可以使用`jps -v`查看
 
+## Download JDK from Oracle Official site
+```bash
+wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u151-b12/e758a0de34e24606bca991d704f6dcbf/jdk-8u151-linux-x64.tar.gz
+```
+如果出现404就在官网上重新复制链接地址，替换掉最后的下载地址即可
+
 ## Java
 * [QRCodeUtil](./QRCode/QRCode.md)
 * [List](./java-List.md)
