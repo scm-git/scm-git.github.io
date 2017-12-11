@@ -212,3 +212,9 @@ Check are there messages in your browser's JavaScript error log. Please report t
 如果是service jenkins start，这样的启动方式，可以修改启动脚本：/etc/sysconfig/jenkins文件中JAVA启动参数，添加如下粗体部分：    
 JENKINS_JAVA_OPTIONS="**-Dhudson.model.DirectoryBrowserSupport.CSP=** -Djava.awt.headless=true"  
 如果是java -jar启动，可以直接在后面加高亮部分参数； 如果是tomcat，可以修改Tomcat的参数，或者解压的包中可能有jenkins.xml文件，修改其中的`<arguments></arguments>`部分  
+
+* Jenkins在CentOS7上出现：java.aws.headless问题
+  **[处理](https://wiki.jenkins.io/display/JENKINS/Jenkins+got+java.awt.headless+problem)**
+  ```
+  sudo yum install fontconfig
+  ```
