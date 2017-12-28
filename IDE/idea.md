@@ -17,3 +17,7 @@ sudo umake ide webstorm
 
 ## IDEA激活码
 http://idea.lanyus.com/
+
+## JRebel license [需要翻墙]
+https://my.jrebel.com/
+http://blog.csdn.net/xiangxueping80/article/details/44487045
