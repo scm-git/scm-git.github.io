@@ -35,3 +35,4 @@ wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2F
 * [List](./java-List.md)
 * [TreeSet](./java-TreeSet.md)
 * [Java面试题](./interview.md)
+* [Java unicode为12288字符](./Unicode_12288.md)
