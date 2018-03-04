@@ -13,9 +13,17 @@ function convert(){
 	if [ "$IS_MD_FILE" == "0" ]
 	then
 	    echo "[INFO] converting file: $FILE"
-		FILE_NAME=`echo ${FILE} | sed 's/.md/.html/g'`
-		echo "[INFO] html file: $FILE_NAME"
-		pandoc -f markdown -t html5 ${FILE} > ${FILE_NAME}
+		HTML_NAME=`echo ${FILE} | sed 's/\.md/\.html/g'`
+		echo "[INFO] html file: $HTML_NAME"
+		pandoc -f markdown -t html5 ${FILE} > ${HTML_NAME}
+
+        chmod 766 "${HTML_NAME}"
+		# 将文件内容中的.md转换为.html
+		cat ${HTML_NAME} | while read line
+		do
+		    sed -i -e "s/\.md/\.html/g" ${HTML_NAME}
+		done
+
 	else
 		echo "[INFO] $FILE is not markdown file... skip it..."
 	fi
