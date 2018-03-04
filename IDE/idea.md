@@ -21,3 +21,11 @@ http://idea.lanyus.com/
 ## JRebel license [需要翻墙]
 https://my.jrebel.com/
 http://blog.csdn.net/xiangxueping80/article/details/44487045
+
+## IDEA 插件：
+* Alibaba Java Coding Guidelines
+* Eclipse Code Formatter
+* Lombok
+* Graph Database support
+* stackoverflow
+* Bashsupport
