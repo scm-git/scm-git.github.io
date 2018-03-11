@@ -141,6 +141,7 @@
   ```
   aws ec2 describe-security-groups
   aws ec2 authorize-security-group-ingress --group-id sg-5da90d3b --protocol tcp --port 22 --cidr 106.87.20.57/32
+  aws ec2 authorize-security-group-ingress --group-name wxd-sg-tky-1 --protocol all --port all --cidr 27.11.103.80/32 --region ap-northeast-1
   ```
   首先查看要修改的安全组ID，然后复制到`authorize-security-group-ingress`中
   
