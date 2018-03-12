@@ -5,7 +5,7 @@
 * [HashMap原理](./HashMap.md)
 * [Thread & ThreadLocal](./Thread.md)
 * [synchronized & static method & Class对象](./synchronized.md)
-* GC&Full GC
+* [GC&Full GC](http://blog.csdn.net/iter_zc/article/details/41825395)
 * & 与 && 区别， &的其他用法
 * 多线程
 * 乐观锁与悲观锁
