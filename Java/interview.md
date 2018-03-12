@@ -1,5 +1,5 @@
 # [王孝东的个人空间](https://scm-git.github.io/)
-## Java面试题总结
+## Java基础总结
 * [集合类ArrayList & LinkedList区别](./ArrayList_vs_LinkedList.md)
 * [hash code & hashCode()](./hashcode.md)
 * [HashMap原理](./HashMap.md)
