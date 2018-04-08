@@ -26,19 +26,20 @@
   
   
   	----OUTPUT----------------------
+  	
+  	IUFi1V14rjkWAiLHuFrC2ym9+sZdWUGl
   ```
   
   说明：
   
   ```
-  IUFi1V14rjkWAiLHuFrC2ym9+sZdWUGl
-  	spring配置文件中：ENC(IUFi1V14rjkWAiLHuFrC2ym9+sZdWUGl)
-  	
-  	jasypt.encryptor.algorithm=PBEWithMD5AndDES
-  	jasypt.encryptor.password=jasyptPassword
-  	variable.mysqlPassword=ENC(znyr+NCPGVekXTRbN5M2NkRQkGLrPUK7)
-  	spring.datasource.password=${variable.mysqlPassword}
-  	// 或者直接如下
-  	spring.datasource.password=ENC(znyr+NCPGVekXTRbN5M2NkRQkGLrPUK7)
+  spring配置文件中：ENC(IUFi1V14rjkWAiLHuFrC2ym9+sZdWUGl)
+  
+  jasypt.encryptor.algorithm=PBEWithMD5AndDES
+  jasypt.encryptor.password=jasyptPassword
+  variable.mysqlPassword=ENC(znyr+NCPGVekXTRbN5M2NkRQkGLrPUK7)
+  spring.datasource.password=${variable.mysqlPassword}
+  // 或者直接如下
+  spring.datasource.password=ENC(znyr+NCPGVekXTRbN5M2NkRQkGLrPUK7)
   ```
   
