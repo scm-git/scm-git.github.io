@@ -63,6 +63,7 @@ $ sudo apt-get install git
   $ git tag --help      #查看git tag帮助
   $ git tag v1.0        #创建一个tag，名为v1.0
   $ git push origin v1.0    #将tag v1.0推送到server
+  $ git merge dev-1         #将dev-1分支合并到当前所在分支，比如当前在master分支，该命令合并dev-1分支到master分支
   ```
   [Git常用命令](http://www.cnblogs.com/cspku/articles/Git_cmds.html)
   
