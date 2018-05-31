@@ -96,3 +96,9 @@
   tcpdump -X host 192.168.1.1 and port 80  # -X选项可以输出内容，指定主机和端口
   ```
   
+* 查看JVM虚拟机线程数：
+  ```bash
+  ps -ef | grep java  #查找到想要查看的JVM进程
+  top -Hp $PID    #$PID替换为想要查找的进程号
+  ```
+  
