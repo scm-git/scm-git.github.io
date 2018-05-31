@@ -91,7 +91,7 @@
   firewall-cmd –-reload  
   ```
 
-* tcpdump Linux抓包命令
+* tcpdump Linux抓包命令，[博客](http://www.cnblogs.com/eavn/archive/2010/08/31/1813815.html)
   ```bash
   tcpdump -X host 192.168.1.1 and port 80  # -X选项可以输出内容，指定主机和端口
   ```
