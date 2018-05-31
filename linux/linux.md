@@ -90,4 +90,9 @@
   firewall-cmd –-zone=public –-add-service=http –-permanent
   firewall-cmd –-reload  
   ```
+
+* tcpdump Linux抓包命令
+  ```bash
+  tcpdump -X host 192.168.1.1 and port 80  # -X选项可以输出内容
+  ```
   
