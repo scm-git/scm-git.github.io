@@ -101,4 +101,8 @@
   ps -ef | grep java  #查找到想要查看的JVM进程
   top -Hp $PID    #$PID替换为想要查找的进程号
   ```
+
+* 在Ubuntu上使用sh命令执行脚本问题，Ubuntu的sh命令默认是使用dash,与bash并不兼容，因此需要使用/bin/bash命令执行
+
+
   
