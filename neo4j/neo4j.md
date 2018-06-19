@@ -353,6 +353,44 @@
   
   //查询没有某种关系的结点：
   match (n:MachineRoom) where not (n)<-[]-(:IDC) return n;
+  
+  //创建索引：
+  CREATE INDEX ON :Person(firstname);
+  CREATE INDEX ON :Person(firstname, surname);
+  
+  // 删除索引：
+  DROP INDEX ON :Person(firstname);
+  DROP INDEX ON :Person(firstname, surname);
+  
+  // 查看索引：
+  CALL db.indexes;
+  
+  // 创建unique约束：
+  CREATE CONSTRAINT ON (book:Book) ASSERT book.isbn IS UNIQUE;
+  
+  // 删除unique约束
+  DROP CONSTRAINT ON (book:Book) ASSERT book.isbn IS UNIQUE;
+  
+  // 创建存在性约束
+  CREATE CONSTRAINT ON (book:Book) ASSERT exists(book.isbn);
+  
+  // 删除存在性约束
+  DROP CONSTRAINT ON (book:Book) ASSERT exists(book.isbn);
+  
+  // 创建KEY约束
+  CREATE CONSTRAINT ON (n:Person) ASSERT (n.firstname, n.surname) IS NODE KEY;
+  
+  // 删除KEY约束
+  DROP CONSTRAINT ON (n:Person) ASSERT (n.firstname, n.surname) IS NODE KEY;
+  
+  // 创建关系属性存在性约束
+  CREATE CONSTRAINT ON ()-[like:LIKED]-() ASSERT exists(like.day);
+  
+  // 删除关系属性存在性约束
+  DROP CONSTRAINT ON ()-[like:LIKED]-() ASSERT exists(like.day);
+  
+  // 查看约束
+  CALL db.constraints;
   ```
   
 * cypher-shell
