@@ -38,7 +38,7 @@
   ```
   说明： 目前只能在本机上通过neo4j-shell连接，远程连接始终是失败的,即使设置了dbms.shell.host=0.0.0.0也不能远程连接，没找到原因
   
-  常用命令：
+  **neo4j-shell常用命令：**
   ```
   neo4j-sh (?)$ CREATE (wxd1:Person{name:'wxd1'}),(wxd2:Person{name:'wxd2'}), (wxd3:Person{name:'wxd3'}),(wxd1)-[:FRIEND]->(wxd2),(wxd2)-[:FRIEND]->(wxd3);
   +-------------------+
@@ -393,7 +393,14 @@
   CALL db.constraints;
   ```
   
-* cypher-shell
+* cypher-shell cypher-shell是新版本的Neo4j支持的客户端工具，用于替换neo4j-shell，因此用法与neo4j-shell类似
+
+  ```
+  #需要打开该配置项：
+  #dbms.connectors.default_listen_address=0.0.0.0
+  #使用如下命令打开客户端：
+  cypher-shell -a bolt://192.168.163.131:7687 -u neo4j -p 123456
+  ```
   
 
 * Neo4j备份
