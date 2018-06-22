@@ -104,5 +104,7 @@
 
 * 在Ubuntu上使用sh命令执行脚本问题，Ubuntu的sh命令默认是使用dash,与bash并不兼容，因此需要使用/bin/bash命令执行
 
+* [Linux硬件信息采集](./linux_collect.md)
+
 
   
