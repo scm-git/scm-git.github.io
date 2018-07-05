@@ -95,6 +95,7 @@
   ```bash
   tcpdump -X host 192.168.1.1 and port 80  # -X选项可以输出内容，指定主机和端口
   ```
+  如果出现"tcpdump: USB link-layer type filtering not implemented"，加上网卡名称，如： -i eth0
   
 * 查看JVM虚拟机线程数：
   ```bash

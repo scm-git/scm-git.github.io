@@ -76,3 +76,9 @@ $ sudo apt install redis
    sudo /sbin/iptables -I INPUT -p tcp -m tcp --dport 7102 -j ACCEPT
    sudo /sbin/service iptables save
    ```
+
+7. 使用客户端连接
+   ```
+   [wxd@localhost redis-4.0.10]$ src/redis-cli -p 7100
+   127.0.0.1:7100>
+   ```

@@ -1,0 +1,8 @@
+# [王孝东的个人空间](https://scm-git.github.io/)
+## Redis [官网](http://redis.io)
+
+### Redis常用命令
+1. string
+   ```
+   set key value
+   ```
