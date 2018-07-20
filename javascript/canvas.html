@@ -10,15 +10,16 @@
     </head>
     <body>
         <div id="app">
-        <p slot="title">
-            已画出：{{count}} 个
-        </p>
-        <div style="height: 100%; width: 100%;">
-            <canvas id="myCanvas" width="500" height="700" style="border:1px solid #c3c3c3;" v-on:click="draw1">
-                浏览器不支持
-            </canvas>
+            <p slot="title">
+                已画出：{{count}} 个。
+                <Button v-on:click="clearCanvas" type="info">刷新</Button>
+            </p>
+            <div style="height: 100%; width: 100%;">
+                <canvas id="myCanvas" width="500" height="700" style="border:1px solid #c3c3c3;" v-on:click="draw">
+                    浏览器不支持
+                </canvas>
+            </div>
         </div>
-    </div>
 
         <script type="text/javascript">
             var app = new Vue({
@@ -27,7 +28,7 @@
                     count: 0,
                 },
                 methods: {
-                    draw1: function(){
+                    draw: function(){
                         this.count = this.count + 1
                         //this.message = '已画出：' + this.count  + ' 个'
 
@@ -84,6 +85,12 @@
                         c.height=screen.availHeight - 40
                         var context = c.getContext("2d")
                         context['strokeStyle'] = 'gray'
+                    },
+                    clearCanvas: function(){
+                        var c = document.getElementById("myCanvas")
+                        // 重新设置画布高度或者宽度会清除画布内容
+                        c.height=c.height
+                        this.count = 0
                     }
                 },
                 mounted() {
