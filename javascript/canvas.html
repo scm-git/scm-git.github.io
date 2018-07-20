@@ -1,6 +1,7 @@
 <!DOCTYPE HTML>
 <html>
     <head>
+        <!--禁止手机屏幕放大-->
         <meta charset="utf-8" name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
         <title>画图</title>
         <link rel="stylesheet" type="text/css" href="http://unpkg.com/iview/dist/styles/iview.css">
@@ -13,7 +14,7 @@
             已画出：{{count}} 个
         </p>
         <div style="height: 100%; width: 100%;">
-            <canvas id="myCanvas" width="100%" height="100%" style="border:1px solid #c3c3c3;" v-on:click="draw1">
+            <canvas id="myCanvas" width="500" height="700" style="border:1px solid #c3c3c3;" v-on:click="draw1">
                 浏览器不支持
             </canvas>
         </div>
@@ -30,16 +31,17 @@
                         this.count = this.count + 1
                         //this.message = '已画出：' + this.count  + ' 个'
 
-                        var randx = Math.random() * 500
-                        var randy = Math.random() * 400
+                        var randx = Math.random() * (screen.availWidth-100)
+                        var randy = Math.random() * (screen.availHeight-200)
                         var x = 50 + randx
                         var y = 70 + randy
                         var c = document.getElementById("myCanvas")
                         
                         console.log(c.clientWidth)
                         console.log(c.clientHeight)
-                        console.log(window.clientHeight)
-                        console.log(window.clientWidth)
+                        console.log(window.innerHeight)
+                        console.log(window.innerWidth)
+                        
 
                         var cxt = c.getContext("2d")
 
@@ -56,6 +58,7 @@
                         context.save();
                         context.translate(x, y);
                         context.beginPath();
+                        
                         //从椭圆纵轴下端开始逆时针方向绘制
                         context.moveTo(0, b); 
                         context.bezierCurveTo(ox, b, a, oy, a, 0);
@@ -65,7 +68,26 @@
                         context.closePath();
                         context.stroke();
                         context.restore();
+                    },
+
+                    initCanvas: function() {
+                        var c = document.getElementById("myCanvas")
+                        
+                        console.log(c.clientWidth)
+                        console.log(c.clientHeight)
+                        console.log(window.innerHeight)
+                        console.log(window.innerWidth)
+                        //c.width=window.innerWidth
+                        //c.height=window.innerHeight
+                        // 设置canvas宽度和高度，适应不同设备分辨率
+                        c.width=screen.availWidth
+                        c.height=screen.availHeight - 40
+                        var context = c.getContext("2d")
+                        context['strokeStyle'] = 'gray'
                     }
+                },
+                mounted() {
+                    this.initCanvas()
                 }
             })
         </script>
