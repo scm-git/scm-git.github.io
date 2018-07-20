@@ -38,4 +38,4 @@
     });
     ```
 
-* 4.[canvas](./canvas.htmls)
+* 4.[canvas](./canvas.html)
