@@ -105,6 +105,18 @@
 
 * 在Ubuntu上使用sh命令执行脚本问题，Ubuntu的sh命令默认是使用dash,与bash并不兼容，因此需要使用/bin/bash命令执行
 
+* sed命令
+```
+# -i：直接修改文件，
+sed -i 's/hello/Hello/g' file # g表示替换所有的hello
+sed -i '/Hello/d' file #d表示删除Hello
+
+#以上命令在mac下报错：sed: 1: "file": command a expects \ followed by text
+# mac下需要在-i参数后增加备份文件名，例如：原始文件为aa,-i '_bak'，会将原文件备份为aa_bak，如果不想备份，则输入空字符串：-i ''
+sed -i '_bak' '/Hello/d' file #将file备份为file_bak
+sed -i '' 's/Hello/hello/g' #不备份
+```
+
 * [Linux硬件信息采集](./linux_collect.md)
 
 
