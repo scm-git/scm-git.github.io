@@ -116,15 +116,12 @@ sed -i '/^Hello/d' file #和上面的一样，删除以Hello开头的行
 sed '1d'  #删除第一行
 sed '$d'  #删除最后一行
 sed '1,3d'  #删除1到3行
-
 # 指令p:显示匹配的行
 sed -n '1p' #显示第一行
 sed -n '3,$p' #显示第三到最后一行
 sed -n '/Hello/p' #显示所有包括Hello的行
-
 #a 追加
 sed '$a ABC'  #在最后一行之后追加ABC
-
 #以上命令在mac下报错：sed: 1: "file": command a expects \ followed by text
 # mac下需要在-i参数后增加备份文件名，例如：原始文件为aa,-i '_bak'，会将原文件备份为aa_bak，如果不想备份，则输入空字符串：-i ''
 sed -i '_bak' '/Hello/d' file #将file备份为file_bak
