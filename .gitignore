@@ -46,3 +46,4 @@ reports/
 
 # Grunt
 node_modules/
+.vscode/settings.json
