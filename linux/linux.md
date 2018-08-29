@@ -129,7 +129,8 @@ sed -i '' 's/Hello/hello/g' #不备份
 ```
 
   * ssh登录慢问题
-    1. 情况一： 使用了dns反查，当ssh某个ip是，系统会通过dns反查这个ip对应的域名，如果dns中找不到这个ip的域名解析，则会等到dns查询超时才会进行下一步，消耗时间很长，解决如下：在`/etc/ssh/sshd_config`中增加`UseDNS no`
+    1. 情况一： DNS反向解析问题： 使用了dns反查，当ssh某个ip是，系统会通过dns反查这个ip对应的域名，如果dns中找不到这个ip的域名解析，则会等到dns查询超时才会进行下一步，消耗时间很长，解决如下：在`/etc/ssh/sshd_config`中增加`UseDNS no`
+    2. 情况二： 关闭ssh的gssapi认证： 修改`/etc/ssh/sshd_config`， 设置`GSSAPIAuthentication no`， 重启sshd
 
 * [Linux硬件信息采集](./linux_collect.md)
 
