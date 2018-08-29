@@ -265,3 +265,6 @@ HAProxy配置WebSocket负载均衡，
   
   当然也可能是某些配置不对，导致nginx不能方便的作为websocket的load balancer，但是haproxy却可以很轻松的配置成功，以下是github中一个截图，[原文地址:https://github.com/sockjs/sockjs-node](https://github.com/sockjs/sockjs-node)
   ![WebSocket Load Balancing](../websocket/websocket1.png)
+
+  ### HAProxy问题：
+  1. 各项配置都正确了，但是仍然无法代理后端的服务器，可能是SELinux问题，执行如下命令：`setsebool -P haproxy_connect_any=1`
