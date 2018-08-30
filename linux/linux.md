@@ -133,6 +133,7 @@ sed -i '' 's/Hello/hello/g' #不备份
     2. 情况二： 关闭ssh的gssapi认证： 修改`/etc/ssh/sshd_config`， 设置`GSSAPIAuthentication no`， 重启sshd
 
 * [Linux硬件信息采集](./linux_collect.md)
+* [Shell script](./shell_script.md)
 
 
   
