@@ -98,6 +98,7 @@ HAProxy使用Linux的rsyslog服务来记录日志，因此需要配置haproxy和
   ```
   $ sudo service haproxy restart
   $ sudo service rsyslog restart
+  $ haproxy -f /etc/haproxy/haproxy.cfg -c	#校验配置文件是否正确
   ```
 
 ### 配置HAProxy作为WebSocket的负载均衡器
