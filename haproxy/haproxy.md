@@ -268,4 +268,5 @@ HAProxy配置WebSocket负载均衡，
   ![WebSocket Load Balancing](../websocket/websocket1.png)
 
   ### HAProxy问题：
-  1. 各项配置都正确了，但是仍然无法代理后端的服务器，可能是SELinux问题，执行如下命令：`setsebool -P haproxy_connect_any=1`
+  1. 各项配置都正确了，但是仍然无法代理后端的服务器，可能是SELinux问题，执行如下命令：`setsebool -P haproxy_connect_any=1`, [更多关于SELinux的命令介绍](http://man.linuxde.net/setsebool)
+  
