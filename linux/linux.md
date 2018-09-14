@@ -63,6 +63,14 @@
    $ TIME=`date +%Y%m%d_%H%M%S`
    ```
 
+* 判断数字
+   ```
+   re='^[0-9]+$'
+   if ! [[ $yournumber =~ $re ]] ; then
+     echo "错误：非数字" >&2; exit 1
+   fi
+   ```
+
 * ssh-copy-id复制当前主机的公钥到目标机器
   ```bash
   $ ssh-copy-id -i ~/.ssh/id_rsa.pub wxd@local_centos2
