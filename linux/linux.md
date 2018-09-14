@@ -58,6 +58,11 @@
   $ ssh -o StrictHostKeyChecking=no
   ```
 
+* shell 时间格式：
+   ```
+   $ TIME=`date +%Y%m%d_%H%M%S`
+   ```
+
 * ssh-copy-id复制当前主机的公钥到目标机器
   ```bash
   $ ssh-copy-id -i ~/.ssh/id_rsa.pub wxd@local_centos2
