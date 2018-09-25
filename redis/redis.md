@@ -54,6 +54,7 @@ $ sudo apt install redis
    yum install rubygems -y
    gem install redis
    ```
+    如果出现`edis requires Ruby version >= 2.2.2`错误，参考[文章](https://blog.csdn.net/FengYe_YuLu/article/details/77628094)
 
 4. 创建集群
    ```bash
