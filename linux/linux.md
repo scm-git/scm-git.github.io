@@ -141,9 +141,31 @@ sed -i '_bak' '/Hello/d' file #将file备份为file_bak
 sed -i '' 's/Hello/hello/g' #不备份
 ```
 
-  * ssh登录慢问题
-    1. 情况一： DNS反向解析问题： 使用了dns反查，当ssh某个ip是，系统会通过dns反查这个ip对应的域名，如果dns中找不到这个ip的域名解析，则会等到dns查询超时才会进行下一步，消耗时间很长，解决如下：在`/etc/ssh/sshd_config`中增加`UseDNS no`
-    2. 情况二： 关闭ssh的gssapi认证： 修改`/etc/ssh/sshd_config`， 设置`GSSAPIAuthentication no`， 重启sshd
+* ssh登录慢问题
+  1. 情况一： DNS反向解析问题： 使用了dns反查，当ssh某个ip是，系统会通过dns反查这个ip对应的域名，如果dns中找不到这个ip的域名解析，则会等到dns查询超时才会进行下一步，消耗时间很长，解决如下：在`/etc/ssh/sshd_config`中增加`UseDNS no`
+  2. 情况二： 关闭ssh的gssapi认证： 修改`/etc/ssh/sshd_config`， 设置`GSSAPIAuthentication no`， 重启sshd
+
+* zip/unzip/tar
+  ```
+  $ zip -r myfile.zip dirname
+  $ unzip myfile.zip
+  $ tar -zcvf file.tar * # 将当前目录下所有文件压缩到file.tar，-c： 创建新文件, -z：指定压缩格式
+  $ tar -rf file.tar file1 file2 # 将file1 file2追加到file.tar压缩文件中， -r: 追加
+  $ tar -tf file.tar # 列出压缩文件中的内容，但不解压
+  $ tar -xf file.tar # 解压(提取)文件
+  $ tar -uf file.tar file1 # 更新file.tar中的file1文件， -d：更新
+
+  ######
+  *.tar 用 tar –xvf 解压
+  *.gz 用 gzip -d或者gunzip 解压
+  *.tar.gz和*.tgz 用 tar –xzf 解压
+  *.bz2 用 bzip2 -d或者用bunzip2 解压
+  *.tar.bz2用tar –xjf 解压
+  *.Z 用 uncompress 解压
+  *.tar.Z 用tar –xZf 解压
+  *.rar 用 unrar e解压
+  *.zip 用 unzip 解压
+  ```
 
 * [Linux硬件信息采集](./linux_collect.md)
 * [Shell script](./shell_script.md)
