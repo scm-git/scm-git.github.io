@@ -167,6 +167,9 @@ sed -i '' 's/Hello/hello/g' #不备份
   *.zip 用 unzip 解压
   ```
 
+* [SELinx错误设置导致虚拟机/主机无法启动：Failed to load SELinux policy. Freezing](http://blog.51cto.com/qulei616/1933840)
+
+
 * [Linux硬件信息采集](./linux_collect.md)
 * [Shell script](./shell_script.md)
 
