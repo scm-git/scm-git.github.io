@@ -167,6 +167,19 @@ sed -i '' 's/Hello/hello/g' #不备份
   *.zip 用 unzip 解压
   ```
 
+* linux timestamp to date
+  ```
+  $ date -d @1544598437
+  $ date -r 1544598437    # mac
+  ```
+
+* linux format json
+  ```
+  $ echo '{"aaa":"bbb","ccc":"ddd"}' | python -m json.tool
+  $ curl http://xxxx/json | python -m json.tool
+  $ python -m json.tool my_file.json
+  ```
+
 * [SELinx错误设置导致虚拟机/主机无法启动：Failed to load SELinux policy. Freezing](http://blog.51cto.com/qulei616/1933840)
 
 
