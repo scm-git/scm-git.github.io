@@ -24,3 +24,18 @@ Linux:
 $ CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -o xxx
 $ CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o xxx.exe
 ```
+
+### 使用gopm解决go get下载gopkg.in包失败解决
+1. 安装gopm
+   ```
+   $ go get -u github.com/gpmgo/gopm
+   ```
+
+2. 查看GOBIN($GO_HOME/bin)是否在PATH路径中，如果没有，则添加
+
+3. 使用gopm get -g代替go get
+   ```
+   $ gopm get -u gopkg.in/go-playground/validator.v8
+   ```
+
+4. gopm下载完成之后，默认仓库为~/.gopm/repos路径下，可以将下载的包复制到$GO_HOME/src下
