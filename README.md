@@ -7,6 +7,7 @@
 * [Docker](./docker/docker.md)
 * ELK
 * [Git & GitHub](./git_github/git_github.md)
+* [GoLang](./golang/golang.md)
 * [HAProxy](./haproxy/haproxy.md)
 * [IDE](./IDE/idea.md)
 * [Java](./Java/java.md)
