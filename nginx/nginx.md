@@ -231,8 +231,8 @@
 
 8. Nginx server_name配置详解
 server_name配置nginx虚拟主机的名称，当请求进入到nginx时，nginx根据request header中的host来匹配server块中server_name，由此判定该请求由哪一个server块来处理，匹配规则如下：
-  1. server_name能完全匹配host，则由完全匹配的server块处理
-  2. 前通配符匹配host，如：host: test1.example.com, server_name *.example.com
-  3. 后通配符匹配host，如：host: test1.example.com, server_name test.example.*
-  4. 都无法匹配，则由listen配置项中有default_server的配置块处理，如： listen 8081 default_server
-  5. 如果没有default_server配置项，nginx会选择配置中的第一个server块作为default_server，因此前4项都不满足时，会由第一个server块处理
+   1. server_name能完全匹配host，则由完全匹配的server块处理
+   2. 前通配符匹配host，如：host: test1.example.com, server_name *.example.com
+   3. 后通配符匹配host，如：host: test1.example.com, server_name test.example.*
+   4. 都无法匹配，则由listen配置项中有default_server的配置块处理，如： listen 8081 default_server
+   5. 如果没有default_server配置项，nginx会选择配置中的第一个server块作为default_server，因此前4项都不满足时，会由第一个server块处理
