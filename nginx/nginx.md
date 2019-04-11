@@ -228,3 +228,11 @@
    TLS SNI support enabled
    configure arguments: --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx --modules-path=/usr/lib64/nginx/modules --conf-path=/etc/nginx/nginx.conf --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log --pid-path=/var/run/nginx.pid --lock-path=/var/run/nginx.lock --http-client-body-temp-path=/var/cache/nginx/client_temp --http-proxy-temp-path=/var/cache/nginx/proxy_temp --http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp --http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp --http-scgi-temp-path=/var/cache/nginx/scgi_temp --user=nginx --group=nginx --with-compat --with-file-aio --with-threads --with-http_addition_module --with-http_auth_request_module --with-http_dav_module --with-http_flv_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_mp4_module --with-http_random_index_module --with-http_realip_module --with-http_secure_link_module --with-http_slice_module --with-http_ssl_module --with-http_stub_status_module --with-http_sub_module --with-http_v2_module --with-mail --with-mail_ssl_module --with-stream --with-stream_realip_module --with-stream_ssl_module --with-stream_ssl_preread_module --with-cc-opt='-O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector-strong --param=ssp-buffer-size=4 -grecord-gcc-switches -m64 -mtune=generic -fPIC' --with-ld-opt='-Wl,-z,relro -Wl,-z,now -pie'
    ```
+
+8. Nginx server_name配置详解
+server_name配置nginx虚拟主机的名称，当请求进入到nginx时，nginx根据request header中的host来匹配server块中server_name，由此判定该请求由哪一个server块来处理，匹配规则如下：
+  1. server_name能完全匹配host，则由完全匹配的server块处理
+  2. 前通配符匹配host，如：host: test1.example.com, server_name *.example.com
+  3. 后通配符匹配host，如：host: test1.example.com, server_name test.example.*
+  4. 都无法匹配，则由listen配置项中有default_server的配置块处理，如： listen 8081 default_server
+  5. 如果没有default_server配置项，nginx会选择配置中的第一个server块作为default_server，因此前4项都不满足时，会由第一个server块处理
