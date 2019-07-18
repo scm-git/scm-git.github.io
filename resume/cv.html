@@ -35,7 +35,7 @@
     <!-- ******HEADER****** --> 
     <header class="header">
         <div class="container">                       
-            <img class="profile-image img-responsive pull-left img-circle" src="wxd_id_photo.png" alt="王孝东" />
+            <img class="profile-image img-responsive pull-left img-circle" src="wxd_id_photo2.png" alt="王孝东" />
             <div class="profile-content pull-left">
                 <h1 class="name">王孝东</h1>
                 <h2 class="desc">Java开发工程师/运维开发工程师</h2>
@@ -69,7 +69,7 @@
                         <div class="panel-body">
                             <div class="content">
                                 <ul>
-                                    <li>9年以上Java开发经验</li>
+                                    <li>10年Java开发经验</li>
                                     <li>喜欢研究新技术：Docker, K8S, Spring Boot, Spring Cloud, WebSocket</li>
                                     <li>两年以上AWS实际使用经验，包括IAM, EC2(包括VPC, Image等)， Beanstalk, RDS, DynamoDB, S3</li>
                                     <li>熟悉AWS SDK，有实际开发经验</li>
@@ -88,28 +88,29 @@
                         </div>
                         <div class="panel-body">
                             <div class="item featured text-center">
-                                <h3 class="title">配置管理数据库（CMDB）</h3>
-                                <p class="summary">基于Neo4j图数据库的IT元数据管理系统</p>
-
+                                <h3 class="title">SMP统一运维平台</h3>
+                                <p class="summary">包括服务请求管理，CMDB原数据管理，作业平台，监控平台等一系列运维工具的整合系统</p>
                                 <div class="desc text-left">
                                     <p class="">项目描述：</p>
-                                    <p>CMDB存储与管理企业IT架构中设备的各种配置信息，包括机房、机柜、物理设备、应用、中间件及其关联关系，并为其他系统提供准确可靠的元数据，主要功能如下：</p>
+                                    <p>主要功能如下：</p>
                                     <ul>
                                         <li>
-                                            系统设置：包括权限管理，字典管理，分组管理
+                                            CMDB：包括模型管理，数据管理等相关功能就，模型可动态创建并生产对应表单及了列表
                                         </li>
-                                        <li>数据导入：可以通过csv文件批量添加设备</li>
-                                        <li>装机：新增或者重装设备时，可以一键装机</li>
-                                        <li>资源管理：包括机柜，主机，网络设备，应用等</li>
-                                        <li>数据采集：包括agent执行采集脚本以及SNMP采集网络设备等信息</li>
+                                        <li>作业平台：可以通过作业平台执行脚本及分发文件，以及配置定时作业</li>
+                                        <li>服务请求：可以通过服务请求完成类型管理，工单提交，工单审批等一系列任务</li>
+                                        <li>监控平台：可以通过监控平台及时发现异常主机，异常应用</li>
+                                        <li>中间件管理：可以通过中间件管理平台来完成常用中间的安装，启动，停止及配置修改等常用操作</li>
+                                        <li>用户管理：系统用户管理相关功能，包括权限配置等</li>
                                     </ul>
                                     <p>主要技术：</p>
                                     <ul>
-                                        <li>前端：Vue.js, iView组件</li>
-                                        <li>后端：Spring Boot, Spring MVC, Spring Data Neo4j, Shiro, snmp4j</li>
-                                        <li>存储：Neo4j, Redis</li>
-                                        <li>采集：Shell, SNMP</li>
-                                        <li>Agent：GoLang</li>
+                                        <li>前端：Vue.js, element组件</li>
+                                        <li>后端：Spring Boot, Spring MVC, Spring Data MongoDB</li>
+                                        <li>存储：MySQL, MongoDB, Hazelcast</li>
+                                        <li>运维工具：Ansible/AWX/Playbook </li>
+                                        <li>监控工具：Open-Falcon，Prometheus </li>
+                                        <li>Agent：Python, GoLang</li>
                                     </ul>
                                 </div><!--//desc-->
                             </div><!--//item-->
@@ -121,6 +122,21 @@
                     <div class="section-inner">
                         <h2 class="heading">其他项目</h2>
                         <div class="content">
+                            <div class="item">
+                                <h3 class="title">配置管理数据库（CMDB）</h3>
+                                <p class="summary">项目描述：</p>
+                                <p>
+                                    CMDB是一个基于Neo4j图形数据库打造的IT基础设施元数据管理平台，包括IDC数据中心，机房/机柜，网络设备，安全设备，服务器设备，以及运行在服务器上的应用，以及他们之间的TOPO关系的完整系统，通过该系统可以实现机房设备查询，应用依赖的中间件查询，以及中间件所在主机查询等相关功能，保证运维数据持久化以及一致性
+                                </p>
+                                <p class="summary">责任描述:</p>
+                                <ul>
+                                    <li>负责前期技术调研以及技术选型，主要包括Neo4j数据库选型</li>
+                                    <li>负责需求收集及澄清，拆分用户故事</li>
+                                    <li>负责系统详细设计，包括主要业务抽象类实现，系统框架搭建</li>
+                                    <li>负责相关模块的代码实现，包括数据采集，agent开发等</li>
+                                    <li>负责总体进度把控，带领同事共同完成项目</li>
+                                </ul>
+                            </div><!--//item-->
                             <div class="item">
                                 <h3 class="title">云管理平台(CMP)</h3>
                                 <p class="summary">项目描述：</p>
@@ -175,7 +191,17 @@
                         <h2 class="heading">工作经验</h2>
                         <div class="content">
                             <div class="item">
-                                <h3 class="title">运维开发工程师<span class="place"><a href="https://www.msxf.com">马上消费金融股份有限公司</a></span> <span class="year">(2017 - 至今)</span></h3>
+                                <h3 class="title">高级开发工程师<span class="place"><a href="http://www.cqfae.com/">重庆金融资产交易所有限责任公司</a></span> <span class="year">(2018.8 - 至今)</span></h3>
+                                <p>工作描述：</p>
+                                担任高级开发工程师，负责开发公司SMP统一运维平台，主要工作内容：
+                                <ul>
+                                    <li>独立负责消息管理模块，抽象消息发送API</li>
+                                    <li>调研与开发Open-Falcon监控组件，完成监控平台底层组件支持</li>
+                                    <li>编码实现，维护与完善系统</li>
+                                </ul> 
+                            </div><!--//item-->
+                            <div class="item">
+                                <h3 class="title">运维开发工程师<span class="place"><a href="https://www.msxf.com">马上消费金融股份有限公司</a></span> <span class="year">(2017 - 2018)</span></h3>
                                 <p>工作描述：</p>
                                 担任运维开发工程师，负责开发公司cmdb系统，主要工作内容：
                                 <ul>
