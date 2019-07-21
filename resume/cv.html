@@ -482,7 +482,7 @@
     <script type="text/javascript" src="developer/assets/js/main.js"></script>
     <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
     <script src="./jspdf.customfonts.min.js"></script>
-    <script src="./中文-normal.js"></script>
+    <script src="./wxd-normal.js"></script>
     <script src="./default_vfs.js"></script>
     <script type="text/javascript">
         function exportPDF() {
@@ -517,9 +517,10 @@
             };
             // all coords and widths are in jsPDF instance's declared units
             // 'inches' in this case
-            pdf.addFont('NotoSansCJKjp-Regular.ttf', 'NotoSansCJKjp', 'normal', '中文');
+            pdf.addFont('NotoSansCJKjp-Regular.ttf', 'NotoSansCJKjp', 'normal');
+            pdf.addFont('wxd-normal.ttf', 'wxd', 'normal');
             //pdf.setFont('NotoSansCJKjp');
-            pdf.setFont('中文');
+            pdf.setFont('wxd');
             pdf.fromHTML(
                 source // HTML string or DOM elem ref.
                 , margins.left // x coord
