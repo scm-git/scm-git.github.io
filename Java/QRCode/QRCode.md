@@ -67,3 +67,34 @@ public class QRCodeUtil {
 }
 
   ```
+
+## BarcodeUtil
+  ```java
+  public void testBarcode2() throws Exception {
+        BarcodePDF417 barcode = new BarcodePDF417();
+
+        barcode.setText("4902555131719");
+        barcode.setAspectRatio(.25f);
+        // Image image = barcode.createAwtImage(Color.BLACK, Color.WHITE);
+
+        // return barcode.createAwtImage(Color.BLACK, Color.WHITE);
+
+        // BarcodeEAN codeEAN = new BarcodeEAN();
+        Barcode128 barcode128 = new Barcode128();
+        barcode128.setBarHeight(200f);
+        // codeEAN.setCodeType(codeEAN.SUPP5);
+        barcode128.setCode("ZA4902555131719");
+        String value = barcode128.getCode();
+        System.out.println(value);       // I want to show this code on the picture
+        barcode128.setAltText(value);
+        Image image = barcode128.createAwtImage(Color.black, Color.white);
+
+
+        BufferedImage bffImg
+                        = new BufferedImage(image.getWidth(null),image.getHeight(null), BufferedImage.TYPE_3BYTE_BGR);
+        Graphics graphics = bffImg.createGraphics();
+        graphics.drawImage(image, 0, 0, null);
+
+        ImageIO.write(bffImg, "png", new File("test.png"));
+}
+  ```
