@@ -44,14 +44,18 @@ if [ -n "$STRING" ]; then
     echo "STRING is not empty"
 fi
 
-#文件
-
+# 文件，目录判断
 if [ -f /tmp/aa.txt ]; then
-    echo "aa.txt is existed file"
+    echo "aa.txt exists and is file"
+fi
+
+if [ ! -f /tmp/aa.txt ]; then
+    echo "file does not exist"
+    touch "/tmp/aa.txt"
 fi
 
 if [ -d /tmp/aa ]; then
-    echo "aa is existed dir"
+    echo "aa exists and is dir"
 fi
 ```
 
