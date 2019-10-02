@@ -32,7 +32,29 @@ echo "abc def gh" | cut -f1 -d\ #字符串split，根据空格拆分，详见cut
 echo "abcd" | sed ’s/a/A/g‘ #字符串替换
 echo "${#A1}"   #字符串长度
 
+# 判断字符串是否为空
+#!/bin/sh
+
+STRING=
+if [ -z "$STRING" ]; then
+    echo "STRING is empty"
+fi
+
+if [ -n "$STRING" ]; then
+    echo "STRING is not empty"
+fi
+
 #文件
+
+if [ -f /tmp/aa.txt ]; then
+    echo "aa.txt is existed file"
+fi
+
+if [ -d /tmp/aa ]; then
+    echo "aa is existed dir"
+fi
 ```
+
+
 
 * [更多字符串处理](http://www.cnblogs.com/chengmo/archive/2010/10/02/1841355.html)
