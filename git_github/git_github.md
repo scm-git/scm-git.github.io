@@ -65,6 +65,12 @@ $ sudo apt-get install git
   $ git push origin v1.0    #将tag v1.0推送到server
   $ git merge dev-1         #将dev-1分支合并到当前所在分支，比如当前在master分支，该命令合并dev-1分支到master分支
   $ git config --global http.sslverify "false" #fatal: unable to access "": error setting certificate verify locations: CAfile:xxx
+
+  # git alias 设置
+  $ git config --global alias.co checkout
+  $ git config --global alias.ci commit
+  $ git config --global alias.st status
+  $ git config --global alias.br branch
   ```
   [Git常用命令](http://www.cnblogs.com/cspku/articles/Git_cmds.html)
   
