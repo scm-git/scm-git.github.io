@@ -14,6 +14,14 @@
         <groupId>org.mybatis.generator</groupId>
         <artifactId>mybatis-generator-maven-plugin</artifactId>
         <version>1.3.5</version>
+        <!-- 增加jdbc驱动，根据MySQL或者Oracle选择合适的驱动，这里指定了依赖，就不需要在generatorConfig.xml中指定 -->
+        <dependencies>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>5.1.39</version>
+            </dependency>
+        </dependencies>
     </plugin>
     ...
     </plugins>
@@ -33,7 +41,7 @@
   mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
   ```
   
-MybatisGenerator.xml文件示例：
+mybatis-generator-maven-plugin插件的默认配置文件为src/main/resource/generatorConfig.xml，如果要使用其他文件，需要在插件中指定configuration配置项，示例内容如下：
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
@@ -42,14 +50,14 @@ MybatisGenerator.xml文件示例：
 
         <!-- 生成的Java文件的编码 -->
         <property name="javaFileEncoding" value="UTF-8" />
-    
+
         <!-- 格式化java代码 -->
         <property name="javaFormatter"
-            value="org.mybatis.generator.api.dom.DefaultJavaFormatter" />
+                  value="org.mybatis.generator.api.dom.DefaultJavaFormatter" />
         <!-- 格式化XML代码 -->
         <property name="xmlFormatter"
-            value="org.mybatis.generator.api.dom.DefaultXmlFormatter" />
-    
+                  value="org.mybatis.generator.api.dom.DefaultXmlFormatter" />
+
         <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
         <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
         <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
@@ -57,36 +65,30 @@ MybatisGenerator.xml文件示例：
             <property name="searchString" value="Example$" />
             <property name="replaceString" value="Criteria" />
         </plugin>
-    
-        <plugin type="com.hpe.wephoto.common.mybatis.plugin.MapperClassNamePlugin" />
-        <plugin type="com.hpe.wephoto.common.mybatis.plugin.MapperMethodNamePlugin" />
-        <plugin type="com.hpe.wephoto.common.mybatis.plugin.BeanImplementationPlugin" />
-    
+
         <!-- 去除自动生成的注释 -->
         <commentGenerator>
             <property name="suppressAllComments" value="true" />
             <property name="suppressDate" value="true" />
         </commentGenerator>
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-            connectionURL="jdbc:mysql://localhost:3306/cloud_wechat_print"
-            userId="wxpp" password="xxxxxx" />
-    
+                        connectionURL="jdbc:mysql://localhost:3306/spring_demo"
+                        userId="root" password="123456" />
+
         <!-- 数据表对应的model 层 -->
-        <javaModelGenerator targetPackage="com.hpe.wephoto.common.model"
-            targetProject="./src/main/java">
+        <javaModelGenerator targetPackage="org.wxd.mybatis.bean"
+                            targetProject="./src/main/java">
         </javaModelGenerator>
-    
+
         <!-- sql mapper 映射配置文件 -->
-        <sqlMapGenerator targetPackage="mybatis.mapper" targetProject="./src/main/resources" />
-    
+        <sqlMapGenerator targetPackage="org.wxd.mybatis.bean" targetProject="./src/main/java" />
+
         <!-- 生成DAO对象 -->
-        <javaClientGenerator targetPackage="com.hpe.wephoto.common.dao"
-            targetProject="./src/main/java" type="XMLMAPPER">
+        <javaClientGenerator targetPackage="org.wxd.mybatis.dao"
+                             targetProject="./src/main/java" type="XMLMAPPER">
         </javaClientGenerator>
-    
-        <table schema="cloud_wechat_print" tableName="t_advertisement_print_stat" >
-            <generatedKey column="id" sqlStatement="MySql" identity="true" />
-        </table>
+
+        <table tableName="host" ></table>
     </context>
 </generatorConfiguration>
 ```
