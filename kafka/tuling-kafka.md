@@ -157,13 +157,16 @@ $ cp config/server.properties config/server-3.properties
    * 当某个topic分区改变时(如：使用kafka-topics.sh脚本为某个topic增加了分区时)，由Controller负责分区的重新分配(消费者rebalance)
    * Controller选举机制： kafka启动时会向zookeeper中创建/controller临时节点， 写入brokerid, timestamp; 谁创建成功，谁就是leader节点，其他节点都监听这个节点
    * controller 会监听zookeeper中的数据，可以感知分区的leader是否故障
+ 
 ### 2.分区副本leader
    * controller 监听/broker/ids(该节点下全是临时节点，挂掉后就会消失，因此可以感知broker是否存活)感知leader是否挂掉，挂掉之后，从replicas里从小到大查找，如果在isr（已同步列表）里，则可以选举为leader
+ 
 ### 3.消费者Rebalance机制
 #### 3.1 如下情况可能会触发消费者rebalance:
    * consumer所在的服务重启或宕机
    * 动态给topic增加了分区
    * 消费组订阅了更多的topic
+ 
 #### 3.2 Rebalance过程如下：
 1. 选择组协调器
    1. 每个消费者发送FindCoordinatorRequest给broker
@@ -179,6 +182,7 @@ $ cp config/server.properties config/server-3.properties
    1. LeaderCoordinator(就是其中一个消费者)发送SyncGroupRequest给GroupCoordinator(broker)
    2. GroupCoordinator下发分区方案给所有的consumer
 4. **注意区分两个概念：`GroupCoordinator`:消费组的协调器，是一个broker节点，`LeaderCoordinator`：某个组下所有消费者的主协调器，是一个consumer**
+
 #### 3.3 消费者Rebalance分区分配策略：
 主要有三种rebalance的策略： range(默认), round-robin, sticky；通过消费者的partition.assignment.strategy参数配置。
 假设一个主题有10个分区，3个消费者：
