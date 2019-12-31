@@ -55,7 +55,6 @@
 2. 创建各自的dataDir
 3. 在dataDar下创建myid文件，写入自己的ID：1/2/3
 
-
 ### Zookeeper 集群角色
 1. leader  主节点， 用于写入数据，通过选举产生，如果挂掉会重新选举产生
 2. follower  次节点， 用于读取数据，且是主节点的备选节点，并拥有投票权
@@ -78,16 +77,16 @@ zkServer.sh status conf/zoo1.cfg
    * 服务启动时
    * 半数以上节点无法和leader通信时
 
- ### 数据同步机制
- 1. proposal leader --> follower 
- 2. ACK follower --> leader
- 3. commit leader --> follower
+### 数据同步机制
+1. proposal leader --> follower 
+2. ACK follower --> leader
+3. commit leader --> follower
 
- leader没有产生之前，zookeeper无法提供服务
+leader没有产生之前，zookeeper无法提供服务
 
- ### ZXID
- 保证数据一致性
- 节点数据同步：根据ZXID 64位， 高32+低32；  每次选举leader会对高32位+1，并清空低32位； 每次数据变更，ZXID都会+1
+### ZXID
+保证数据一致性
+节点数据同步：根据ZXID 64位， 高32+低32；  每次选举leader会对高32位+1，并清空低32位； 每次数据变更，ZXID都会+1
 
 
 
