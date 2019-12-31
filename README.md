@@ -14,6 +14,7 @@
 * [Javascript](./javascript/javascript.md)
 * [Jenkins](./Jenkins/jenkins.md)
 * [JPA](./jpa/jpa.md)
+* [Kafka](./kafka/tuling-kafka.md)
 * [Linux](./linux/linux.md)
 * [Maven](./maven/maven.md)
 * [MyBatis](./mybatis/mybatis.md)
@@ -28,4 +29,5 @@
 * [squid+stunnel](./squid_stunnel/squid_stunnel.md)
 * [WebSocket](websocket/websocket.md)
 * [Windows 10](windows10/windows10.md)
+* [Zookeeper](./zookeeper/tuling-zookeeper.md)
 
