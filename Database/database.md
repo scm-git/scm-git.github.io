@@ -290,7 +290,11 @@ Query OK, 0 rows affected (0.00 sec)
   ```
   * type: I/O类型，system < const < ref < eq_ref < ALL
   * key: 使用的索引
-  * key_len: 使用的索引长度，使用联合索引中的不同字段时，长度为不同
+  * key_len: 使用的索引长度，使用联合索引中的不同字段时，长度为不同；key_len的计算规则：
+    * 字符串： char(n)：n字节长度；varchar(n): 2字节存储字符传长度，如果是utf-8，则长度是3n+2
+    * 数值类型：tinyint - 1 字节，smallint - 2 字节， int - 4 字节， bigint - 8 字节
+    * 时间类型： date - 3 字节， timestamp - 4 字节， datetime - 8 字节
+    * 如果字段允许为null, 需要额外1字节记录是否为null
   * ref: const(where id = 1), ref(where film_actor.film_id = film.id)
   * rows: 扫描的行数
   * Extra: 额外的补充说明： 
