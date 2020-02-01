@@ -288,6 +288,18 @@ Query OK, 0 rows affected (0.00 sec)
           Extra: Using index condition                          
   1 row in set (0.00 sec)                                       
   ```
+  * type: I/O类型，system < const < ref < eq_ref < ALL
+  * key: 使用的索引
+  * key_len: 使用的索引长度，使用联合索引中的不同字段时，长度为不同
+  * ref: const(where id = 1), ref(where film_actor.film_id = film.id)
+  * rows: 扫描的行数
+  * Extra: 额外的补充说明： 
+    * using index： 使用覆盖索引，select列中的字段全在索引中，无需再通过索引读取row
+    * using condition: 查询列不完全被索引覆盖，可能使用了索引的前导列
+    * using where: 查询列未被索引覆盖，例如：select name from film; 
+    * Select tables optimized away：mysql已内部优化，例如 select min(id) from film;
+    * using filesort： 排序，使用了临时表
+    * using temporary: 使用临时表
 * `SHOW GLOBAL STATUS`
 * `SHOW PROCESSLIST`，在末尾加上\G可以垂直的方式输出结果，方便结合linux命令排序
 * `mysql -e 'SHOW PROCESS LIST\G' | grep State: | sort | uniq -c | sort -rn`
