@@ -443,6 +443,10 @@ Query OK, 0 rows affected (0.00 sec)
   * 能用覆盖索引尽量用覆盖索引
   * group by与order by类似，其实质是先排序后分组，遵循索引创建顺序的最左前缀法则。对于group by的优化如果不需要排序的可以加上order by null禁止排序
   * where高于having，能写在where中的条件就不要去having限定了
+* Using filesort文件排序原理
+  * 单路排序：是一次性去除满足条件的所有字段，然后在sort buffer中进行排序；用trace工具可以看到filesort_summary.sort_mode信息里显示<sort_key, additional_fields>或者<sort_key, packed_additional_fields>
+  * 双路排序（又叫回表排序）：首先根据相应的条件取出相应的排序字段和可以直接定位行数据的行id，然后在sort buffer中进行排序，排序完后需要再次回表取回其他需要的字段；用trace工具可以看到filesort_summary.sort_mode信息里显示<sort_key, rowid>
+  * MySQL通过比较变量max_length_for_sort_data(默认1024字节)的大小和需要查询的字段总大小来判断使用哪种排序模式: 如果查询的字段总长度 > max_length_for_sort_data，则使用双路排序，小于则使用单路排序
 
 ---
 
