@@ -425,7 +425,24 @@ Query OK, 0 rows affected (0.00 sec)
     -- 对于索引(name, age, position)
     mysql > select * from employees where name = 'LiLei' order by age;  -- where中的name和order by中的age都会走索引，因为，name,age符合最左前缀原则
     mysql > select * from employees where name = 'LiLei' order by position; -- where中的name会走索引，但是order by中的position不会走索引，跳过了age
+    mysql > select * from employees where name = 'LiLei' order by age,position; -- where中的name和order by中的age, position会走索引；符合索引树的字段顺序
+    mysql > select * from employees where name = 'LiLei' order by position,age; -- where中的name会走索引，但是order by中的position,age不会走索引；不符合索引树的字段顺序； order by 的顺序不能调换，不像where的等值查询可以被优化为正确的顺序
+    mysql > select * from employees where name = 'LiLei' and age = 18 order by position,age; -- where中的name,age和order by中的position, age都会走索引，此处会优化order by 中的age字段，因为age已经是一个常量，是无效的排序字段，所以满足索引字段顺序
+    mysql > select * from employees where name = 'LiLei' order by age asc, position desc; -- where中的name会走索引，order by中的age asc,position desc不会走索引，因为order by要求的排序方式与索引的排序方式不一致，无法使用索引，索引无法走索引
+    mysql > select * from employees where name in ('LiLei', 'HanMeimei') order by age, position; -- in 范围查询，走不走索引并不是一定的， order by子句也不会走索引，因为范围查找之后的字段是不会走索引的
+    mysql > select * from employees where name in ('LiLei', 'HanMeimei') order by age, position; -- in 范围查询，走不走索引并不是一定的， order by子句也不会走索引，因为范围查找之后的字段是不会走索引的
+    mysql > select * from employees where name > 'a' order by name; -- 范围查询，不一定走索引
+    mysql > select name, age, position from employees where name > 'a' order by name; -- 会走索引，因为查询列满足索引覆盖原则
+
+    -- 思考： select * from table_1 order by id desc; 与 select * from table_1 order by create_date desc;
     ```
+  * mysql支持两种方式的排序: `filesort`和`index`, Using index指MySQL扫描索引本身完成的排序。index效率高，filesort效率低
+  * order by满足两种情况会使用Using index: order by语句使用索引最左前列；where子句和order by子句的条件列组合满足最左前缀列
+  * 尽量在索引列上完成排序，遵循索引建立(索引创建的顺序)时的最左前缀法则
+  * 如果order by的条件不在索引列上，就会产生filesort
+  * 能用覆盖索引尽量用覆盖索引
+  * group by与order by类似，其实质是先排序后分组，遵循索引创建顺序的最左前缀法则。对于group by的优化如果不需要排序的可以加上order by null禁止排序
+  * where高于having，能写在where中的条件就不要去having限定了
 
 ---
 
