@@ -288,7 +288,7 @@ Query OK, 0 rows affected (0.00 sec)
           Extra: Using index condition                          
   1 row in set (0.00 sec)                                       
   ```
-  * type: I/O类型，system < const < ref < eq_ref < ALL
+  * type: 关联类型或访问类型，system > const > eq_ref > ref > range > index > ALL
   * key: 使用的索引
   * key_len: 使用的索引长度，使用联合索引中的不同字段时，长度为不同；key_len的计算规则：
     * 字符串： char(n)：n字节长度；varchar(n): 2字节存储字符传长度，如果是utf-8，则长度是3n+2
@@ -342,6 +342,7 @@ Query OK, 0 rows affected (0.00 sec)
     * 如果不按照索引的最左列开始查找，则无法使用索引，例如一个索引：Key(LAST_NAME,FIRST_NAME,AGE)，如果WHERE字句中直接查找FIRST_NAME，则无法使用索引
     * 不能跳过索引中的列，也就是无法通过索引直接查找LAST_NAME=XXX AND AGE=XX
     * 如果查询中某个列有范围查询，则后边的列无法再使用索引优化查询
+    * 辅助索引中存储的数据是数据行的主键，所以如果通过辅助索引查询，需要再次通过主键定位数据行
   * 哈希索引：基于哈希表实现，只有精确匹配所有列的查询才有效。对每一行数据，存储引擎都会对所有的索引列计算一个hash code. 哈希索引无法用于排序，且只支持等值查询(=),不支持>=,<=等操作。
     * 一个常用的哈希索引场景为：存储大量URL时，可以对URL列使用哈希索引(CRC32)，这样通过URL查询时，效率非常高。但是如果表特别大，CRC32可能会导致大量的哈希冲突，可以考虑自己实现一个简单的64位哈希函数。一个简单的办法是使用MD5()函数返回值的一部分作为自定义的哈希函数
   * 空间数据索引(R-Tree)： MyISAM表支持空间索引
@@ -353,7 +354,27 @@ Query OK, 0 rows affected (0.00 sec)
 * 聚簇索引： 并不是一种单独的索引类型，而是一种索引存储方式。InnoDB的聚簇索引是在同一个结构中保存了B-Tree索引和数据行
   * 优点： 可以降低磁盘I/O，数据访问更快
   * 缺点： 更新聚簇索引列的代价很高，可能导致全表扫描变慢
-* 索引可以减少锁定的行，
+* 索引可以减少锁定的行
+* 索引查询优化：
+  * 全值匹配
+  * 最左前缀法则 -- 联合索引
+  * 不要在索引列上使用函数，包括字符串数字隐式转换
+  * 存储引擎不能使用索引中范围条件右边的列
+  * 尽量使用覆盖索引（只访问索引列的查询，减少select * 查询）
+  * 不等于(<>, !=)不能使用索引，尽量避免
+  * is null, is not null也不能使用索引
+  * like 前导查询可以用索引， 前模糊无法使用索引('%ABC')
+  * 少用in或or，用它查询时，mysql不一定使用索引，mysql内部优化器会根据检索比例，表大小等多个因素整体评估是否使用索引（范围查询优化）
+  * 范围查询优化，例如 `age >= 1 and age <= 2000`,这个可能就不会索引； 可以优化为多个小范围查询
+  * 覆盖索引原则： 如果查询的列都是辅助索引上的列，则可能走索引，如果不是，则需要通过辅助索引重新定位的主键索引，然后在读取数据行；所以某些索引列查询可能并不一定走索引
+* trace工具用法，开启trace工具会影响mysql性能，所以只能临时开启分析sql使用，用完之后立即关
+  ```
+  mysql> set session optimizer_trace="enabled=on", end_markers_in_json=on; -- 开启trace
+  mysql> select * from employees where name > 'a' order by position;
+  mysql> select * from information_schema.OPTIMIZER_TRACE;
+
+  查看trace字段：
+  ```
 
 ---
 
@@ -398,6 +419,13 @@ Query OK, 0 rows affected (0.00 sec)
     * 打开并锁住所有底层表的成本可能很高
     * 维护分区的成本可能很高
   * 使用EXPLAIN查看分区使用情况`EXPLAIN PARTITIONS`
+* 深入优化
+  * Order by 与 Group by
+    ```
+    -- 对于索引(name, age, position)
+    mysql > select * from employees where name = 'LiLei' order by age;  -- where中的name和order by中的age都会走索引，因为，name,age符合最左前缀原则
+    mysql > select * from employees where name = 'LiLei' order by position; -- where中的name会走索引，但是order by中的position不会走索引，跳过了age
+    ```
 
 ---
 
