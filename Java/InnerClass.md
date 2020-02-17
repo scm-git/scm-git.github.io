@@ -150,3 +150,5 @@ class StaticInnerClass {
 	}
 }
 ```
+
+参考文章：[内部类解析](https://www.cnblogs.com/wihainan/p/4773076.html)
