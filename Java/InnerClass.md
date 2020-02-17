@@ -134,7 +134,7 @@ class Test{
 * 只可以访问外部类的静态成员和静态方法，包括了私有的静态成员和方法。
 * 同样会被编译成一个完全独立的.class文件，名称为OuterClass$InnerClass.class的形式。
 * 生成静态内部类对象的方式为：OuterClass.InnerClass inner = new OuterClass.InnerClass();
-* 静态内部类的使用目的与限制： https://www.cnblogs.com/wihainan/p/4773076.html
+* 静态内部类的使用目的与限制： [https://www.cnblogs.com/wihainan/p/4773076.html](https://www.cnblogs.com/wihainan/p/4773076.html)
 
 ```java
 class StaticInnerClass {
@@ -153,4 +153,4 @@ class StaticInnerClass {
 }
 ```
 
-参考文章：[https://www.cnblogs.com/wihainan/p/4773076.html](https://www.cnblogs.com/wihainan/p/4773076.html)
+参考文章：[内部类解析](https://www.cnblogs.com/wihainan/p/4773076.html)
