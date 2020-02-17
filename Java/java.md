@@ -34,6 +34,7 @@ wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2F
 * [QRCodeUtil](./QRCode/QRCode.md)
 * [List](./java-List.md)
 * [TreeSet](./java-TreeSet.md)
+* [Inner Class](./InnerClass.md)
 * [Java基础](./interview.md)
 * [Java unicode为12288字符](./Unicode_12288.md)
 * [Javassist](https://www.ibm.com/developerworks/cn/java/j-dyn0916/)
