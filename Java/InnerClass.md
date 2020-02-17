@@ -55,6 +55,7 @@ public class Outer {
     > 但是该方法结束之后，在方法内创建的内部类对象可能仍然存在于堆中！例如，如果对它的引用被传递到其他某些代码，并存储在一个成员变量内。
     > 正因为不能保证局部变量的存活期和方法内部类对象的一样长，所以内部类对象不能使用它们。下面是完整的例子：
   * 静态方法内的方法内部类，静态方法是没有this引用的，因此在静态方法内的内部类遭受同样的待遇，即：只能访问外部类的静态成员。
+
 ```java  
 class LocalInnerClass {
 	public void doSomething() {
@@ -79,6 +80,7 @@ class LocalInnerClass {
   * 接口式的匿名内部类。
   * 参数式的匿名内部类。
 * 建立匿名内部类的关键点是重写父类的一个或多个方法。再强调一下，是重写父类的方法，而不是创建新的方法。 因为用父类的引用不可能调用父类本身没有的方法！创建新的方法是多余的。简言之，参考多态。
+
 ```java
 class Car {
 	public void drive(){
@@ -133,6 +135,7 @@ class Test{
 * 同样会被编译成一个完全独立的.class文件，名称为OuterClass$InnerClass.class的形式。
 * 生成静态内部类对象的方式为：OuterClass.InnerClass inner = new OuterClass.InnerClass();
 * 静态内部类的使用目的与限制： https://www.cnblogs.com/wihainan/p/4773076.html
+
 ```java
 class StaticInnerClass {
 	private static int a = 1;
@@ -150,4 +153,4 @@ class StaticInnerClass {
 }
 ```
 
-参考文章：[内部类解析](https://www.cnblogs.com/wihainan/p/4773076.html)
+参考文章：[https://www.cnblogs.com/wihainan/p/4773076.html](https://www.cnblogs.com/wihainan/p/4773076.html)
