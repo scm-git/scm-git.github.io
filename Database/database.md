@@ -437,17 +437,48 @@ Query OK, 0 rows affected (0.00 sec)
     -- 思考： select * from table_1 order by id desc; 与 select * from table_1 order by create_date desc;
     ```
   * mysql支持两种方式的排序: `filesort`和`index`, Using index指MySQL扫描索引本身完成的排序。index效率高，filesort效率低
-  * order by满足两种情况会使用Using index: order by语句使用索引最左前列；where子句和order by子句的条件列组合满足最左前缀列
+  * order by满足两种情况会使用Using index: 1. order by语句使用索引最左前列；2. where子句和order by子句的条件列组合满足最左前缀列
   * 尽量在索引列上完成排序，遵循索引建立(索引创建的顺序)时的最左前缀法则
   * 如果order by的条件不在索引列上，就会产生filesort
   * 能用覆盖索引尽量用覆盖索引
   * group by与order by类似，其实质是先排序后分组，遵循索引创建顺序的最左前缀法则。对于group by的优化如果不需要排序的可以加上order by null禁止排序
   * where高于having，能写在where中的条件就不要去having限定了
 * Using filesort文件排序原理
-  * 单路排序：是一次性去除满足条件的所有字段，然后在sort buffer中进行排序；用trace工具可以看到filesort_summary.sort_mode信息里显示<sort_key, additional_fields>或者<sort_key, packed_additional_fields>
+  * 单路排序：是一次性取出满足条件的所有字段，然后在sort buffer中进行排序；用trace工具可以看到filesort_summary.sort_mode信息里显示<sort_key, additional_fields>或者<sort_key, packed_additional_fields>
   * 双路排序（又叫回表排序）：首先根据相应的条件取出相应的排序字段和可以直接定位行数据的行id，然后在sort buffer中进行排序，排序完后需要再次回表取回其他需要的字段；用trace工具可以看到filesort_summary.sort_mode信息里显示<sort_key, rowid>
   * MySQL通过比较变量max_length_for_sort_data(默认1024字节)的大小和需要查询的字段总大小来判断使用哪种排序模式: 如果查询的字段总长度 > max_length_for_sort_data，则使用双路排序，小于则使用单路排序
+* 分页优化
+  * 考虑这个查询： `select * from employee limit 100000,5;`, SQL先查询出100005条记录，然后丢弃掉前100000条，留下最后5条，所以性能会比较低， 当主键自增且连续时，等价于:  `select * from employee where id > 100000 limit 5;`
+  * 考虑这个查询(大表的后面几页查询)： `select * from employee order by name limit 100000, 5`; (name上有索引)，优化： `select * from employee e inner join (select id form employee order by name limit 100000, 5) ed on e.id = ed.id;` 先通过索引覆盖查询得到100000开始的5行，因为select中只有id，所以走索引覆盖，而不用全表扫描，然后外层查询再通过ID去定位行记录，所以扫描行数大大降低，从而提高效率
+* 关联查询优化
+  * 表连接关联查询两种常用算法：
+    * 嵌套循环连接(Nested-Loop Join)算法： 大表的连接字段上有索引，MySQL通常使用这种算法
+    * select * t1 inner join t2 on t1.name = t2.name; -- 查看查询计划，可以看到先查询数据量小的那一张表，在查询大的表(小表驱动大表，先执行的表叫驱动表，另一张表叫被驱动表)
+      * 从小表中读取一行数据，
+      * 读取关联字段name，到大表中查询
+      * 取出大表中满足条件的行，跟小表中获取的结果合并，作为结果返回给客户端
+      * 重复三面3步
+    * 整个过程扫描的数据行数就是： 小表行数+大表能匹配上的行数；
+  * 基于块的嵌套连接循环连接(Block Nested-Loop Join)算法: 连接字段上没有索引时使用该算法
+    * 算法流程
+      * 把小表(驱动表)的数据读入join_buffer中，  
+      * 把大表中的数据逐行读出，跟join_buffer中数据做对比
+      * 返回满足join条件的数据
+  * 结论： 用小表驱动大表，可以减少行扫描次数从而减少磁盘IO，对关联字段增加索引， 当你明确知道哪个表示小表的时候，可以使用small_table straight_join big_table的方式(但是straight_join只适用于inner_join,不适用于left join, right join); 但是使用straight_join一定要慎重，MySQL执行引擎可能还会参考其他因素来判断
+* in和exists优化
+  * 原则： 小表驱动大表
+  * in: `select * from A where id in (select id from B)`: 当B的数据集小于A表的时候，in 优先于 exists
+  * exists: `select * from A where exists (select 1 from B where b.id = a.id)`: 当A表的数据集小于B表的数据集时，exists 优先于 in
+* count(*)查询优化； 以下count的性能一次递减， 而且选择二级索引，因为二级索引数据量更小(叶子节点只有id)
+  * count(1): 
+  * count(name):  
+  * count(*): 
+  * count(id): 
+  * **对于大表的count，可以将行数放入redis(但是可能不准确，可以通过定时任务每隔一段时间更新总算，这样就只有某一个时间段不准)，或者另起一个计数表来存储行数(数据表和计数表放在一个事务里，可以保证一致性)**
 
+
+  
+    
 ---
 
 ### MySQL数据库迁移
