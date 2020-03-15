@@ -24,6 +24,25 @@ $ docker login -u docker-registry-username
 $ docker push docker-registry-username/docker-image-name
 ```
 
+### Docker Machine
+Windows或者Mac需用借助虚拟机来实现docker服务器相关功能，而本地仅仅是连接到docker的虚拟机服务器；所以需要依赖virtual box虚拟机，然后可以通过docker-machine来管理
+```
+# 使用docker-machine 创建一个docker服务端环境， 名称为default
+# 这个命令会通过virtual box拉起一个带有docker服务端的虚拟机环境；默认的driver为virtual box，可以通过--driver使用其他的，比如vmware的fusion等
+# 另外这条命令通常会从https://github.com/boot2docker/boot2docker/releases/download/v19.03.5/boot2docker.iso 地址下载虚拟机启动的iso镜像文件，可能需要翻墙才能下载，所以，可能还需要配置代理
+# export http_proxy=http://proxy_ip:port
+# export https_proxy=http://proxy_ip:port
+$ docker-machine create default
+
+$ # 指定客户端需要连接的docker服务端地址(因为是在virtual box的虚拟机中)；下面这条命令其实就是执行了下面4个export(也就是linux的环境变量设置而已，直接运行docker-machine env default可以看到如下输出)
+$ # export DOCKER_TLS_VERIFY="1"
+$ # export DOCKER_HOST="tcp://192.168.99.100:2376"
+$ # export DOCKER_CERT_PATH="/Users/wangxiaodong/.docker/machine/machines/default"
+$ # export DOCKER_MACHINE_NAME="default"
+$ eval $(docker-machine env default)
+
+```
+
 ### 2.Cgroup(control group)
 Cgroup是Linux内核的一个特性，用于限制和隔离一组进程对系统资源的使用，这些资源主要包括CPU,内存,block I/O和网络带宽
 ```bash
