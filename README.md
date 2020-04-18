@@ -19,6 +19,7 @@
 * [Maven](./maven/maven.md)
 * [MyBatis](./mybatis/mybatis.md)
 * [Mongo](./mongo/mongo.md)
+* [Navicat Premium For Mac](https://www.52pojie.cn/thread-1101529-1-1.html)
 * [Neo4j](./neo4j/neo4j.md)
 * [Network](./Network/network.md)
 * [Nginx](./nginx/nginx.md)
