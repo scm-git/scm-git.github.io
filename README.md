@@ -1,6 +1,5 @@
 # [王孝东的个人空间](https://scm-git.github.io/)
 
-* [个人简历](./resume/cv.html)
 * [Ansible](./ansible/ansible.md)
 * [AWS](./AWS/aws.md)
 * [Database](./Database/database.md)
