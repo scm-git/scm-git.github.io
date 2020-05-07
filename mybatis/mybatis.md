@@ -230,3 +230,32 @@ mybatis-generator-maven-plugin插件的默认配置文件为src/main/resource/ge
       </if>
     </select>
     ```
+
+### MyBatis-Plus
+1. 基于Spring Boot引入MyBatis-Plus
+   ```
+   
+   ```
+
+2. 继承PageHelper，有时项目中可能已经使用了PageHelper分页组件，这时需要引入MyBatis-Plus时需要排除冲突包，否则无法启动
+   ```
+   <dependency>
+      <groupId>com.baomidou</groupId>
+      <artifactId>mybatis-plus-boot-starter</artifactId>
+   </dependency>
+
+   <dependency>
+      <groupId>com.github.pagehelper</groupId>
+      <artifactId>pagehelper-spring-boot-starter</artifactId>
+      <exclusions>
+          <exclusion>
+              <groupId>org.mybatis</groupId>
+              <artifactId>mybatis</artifactId>
+          </exclusion>
+          <exclusion>
+              <groupId>org.mybatis</groupId>
+              <artifactId>mybatis-spring</artifactId>
+          </exclusion>
+      </exclusions>
+   </dependency>
+   ```
