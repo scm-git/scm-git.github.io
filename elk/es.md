@@ -47,7 +47,7 @@
      fs.file-max=65535
      vm.max_map_count=262144
      ``` 
-   * 添加之后执行 `sysctl -p`刷新配置文件，`sysctl -a`查看是否生效；如果不成功的，执行如下命令(centos 7.6肯能碰到)
+   * 添加之后执行 `sysctl -p`刷新配置文件，`sysctl -a`查看是否生效；如果不成功的，执行如下命令(centos 7.6可能碰到)
      ```
      rm -f /sbin/modprobe
      ln -s /bin/true /sbin/modprobe
@@ -70,7 +70,7 @@
       #添加如下一行
       * soft nproc 4096
       ```
-      
+
 3. 配置完成后，需要关掉ssh窗口，然后重新打开一个 (7.6好像没有这个问题了)
 4. 自己添加一个Linux用户，不能用root用户启动
 5. 修改es配置文件： $ES_HOME/config/elasticsearch.yml
