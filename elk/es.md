@@ -55,6 +55,7 @@
      ln -s /bin/true /sbin/sysctl
      ```
    * 设置资源参数：
+
      ```
      vi /etc/security/limits.conf
      #添加如下内容：* 表示对linux系统的所有用户生效
@@ -703,7 +704,7 @@
 
 ### Canal集成步骤
 1. 下载Canal
-2. 开启mysql的binlog: mysql的版本不啊哟低于5.6
+2. 开启mysql的binlog: mysql的版本不低于5.6
    * 查看是否开启binlog:
      ```
       show variables like '%bin_log%';
