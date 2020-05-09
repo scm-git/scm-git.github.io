@@ -718,7 +718,7 @@
      expire-logs-days=14
      max-binlog-size=500m
      ```
-3. 为canal配置一个mysql帐号，需要设置repliaction权限
+3. 为canal配置一个mysql帐号，需要设置replication权限
    ```
    create user canal identified by 'canal';
    # 下面这句可能会报权限错误，所以可能需要修改root帐号权限
