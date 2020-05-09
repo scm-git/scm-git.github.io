@@ -232,12 +232,22 @@ mybatis-generator-maven-plugin插件的默认配置文件为src/main/resource/ge
     ```
 
 ### MyBatis-Plus
-1. 基于Spring Boot引入MyBatis-Plus
+1. MyBatis-Plus是一个MyBatis的增强框架，在MyBatis的基础上只做增强，不做改变：
+   * 无侵入，只做增强，不做改变，因此可以直接引入，而不会对原有的MyBatis代码产生任何影响
+   * 强大的CRUD操作，内置通用Mappper, 通用Service, 以及强大的条件构造器Wrapper, 可以满足各类需求
+   * 内置代码生成器
+   * 内置分页插件
+   * ...
+2. 基于Spring Boot引入MyBatis-Plus
    ```
-   
+   <dependency>
+      <groupId>com.baomidou</groupId>
+      <artifactId>mybatis-plus-boot-starter</artifactId>
+      <version>3.3.0</version>
+   </dependency>
    ```
 
-2. 继承PageHelper，有时项目中可能已经使用了PageHelper分页组件，这时需要引入MyBatis-Plus时需要排除冲突包，否则无法启动
+3. 继承PageHelper，有时项目中可能已经使用了PageHelper分页组件，这时需要引入MyBatis-Plus时需要排除冲突包，否则无法启动
    ```
    <dependency>
       <groupId>com.baomidou</groupId>
