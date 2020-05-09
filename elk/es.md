@@ -57,18 +57,20 @@
    * 设置资源参数：
      ```
      vi /etc/security/limits.conf
-     # 添加如下内容：* 表示对linux系统的所有用户生效
+     #添加如下内容：* 表示对linux系统的所有用户生效
      * soft nofile 65535
      * hard nofile 131072
      * soft nproc 2048
      * hard nproc 4096
      ```
+
     * 修改进程数
       ```
       vi /etc/security/limits.d/20-nproc.conf
-      # 添加如下一行
+      #添加如下一行
       * soft nproc 4096
       ```
+      
 3. 配置完成后，需要关掉ssh窗口，然后重新打开一个 (7.6好像没有这个问题了)
 4. 自己添加一个Linux用户，不能用root用户启动
 5. 修改es配置文件： $ES_HOME/config/elasticsearch.yml
@@ -90,9 +92,9 @@
 ### ES集群搭建
 1. 复制一份ES目录，然后修改config/elasticsearch.yml文件
    ```
-   #集群名字保持一致：
+   # 集群名字保持一致：
    cluster.name: my-es
-   # 这配置，两个节点都配置一样的，相互发现
+   # 这个配置，两个节点都配置一样的，相互发现
    discovery.zen.ping.unicast.hosts: ["127.0.0.1:9300","127.0.0.1:9301"]
    # 然后其他端口各自修改，
    http.port: 9201
