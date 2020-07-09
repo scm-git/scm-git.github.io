@@ -54,7 +54,11 @@ $ sudo apt-get install git
   $ git stash  list/show    显示暂存区
   $ git reset -- <file>     #从暂存区恢复到工作文件
   $ git reset -- .              #从暂存区恢复到工作文件
-  $ git rest --hard         #恢复最近一次提交过的状态
+  $ git rest HEAD^ --hard         #回滚最近一次提交，且不保留变更(--hard)，且该操作不可逆；所以需要慎用--hard
+  $ git rest HEAD^^ --hard         #回滚最近两次提交, 且不保留变更(--hard)，且该操作不可逆；所以需要慎用--hard
+  $ git reset HEAD^       # 回滚最近一次操作，没有--hard参数，文件会保留变更状态，可以重新提交这些变更; 因此是一个安全操作
+  $ git reset HEAD^^       # 回滚最近两次操作，没有--hard参数，文件会保留变更状态，可以重新提交这些变更; 因此是一个安全操作
+  $ git rest ${commitId}    # 回滚到指定的commit id, 加--hard参数和上面一样，不保留变更，需要慎用，
   $ git checkout -- <file>       #删除某各文件的所有修改，慎用此操作
   $ git checkout -- .       #删除所有修改，慎用此操作，需要确保所有的修改都需要丢弃时才使用
   $ git log -- path/to/folder   #查看某个目录下的commit日志
@@ -80,6 +84,28 @@ $ sudo apt-get install git
   $ git config --global alias.hist 'log --pretty=format:"%h %ad | %s%d [%an]" --graph --date=short'
   ```
   [Git常用命令](http://www.cnblogs.com/cspku/articles/Git_cmds.html)
+
+* 6.git rebase 与 merge
+  ```
+  # 例如当前分支在dev,以下命令就是将当前dev分支"变基"到master分支，"变基"的具体意思如下：
+  # 将dev分支中所有不存在于master分支中的commit id追加在master分支最后一个commit之后，即使dev中的这些commit的时间在master的commit之前，全部以追加的方式放在master的最后一个commit之后
+  # 变基过程实际是逐个处理dev分支中的commit, 如果发现dev中的某次commit与master中有冲突，且不能自动合并的，则会停下，让操作者手动处理冲突
+  # 当解决完上面的冲突后，使用git add .; git rebase --continue继续处理dev中后面的commit,直到全部处理完成，
+  # 如果该过程中没有需要手动解决的冲突，则可以一次执行完毕
+  # 根据这个追加特性，我们在合并代码时，就可以利用这一点，将不稳定的dev分支以rebase的方式合并到稳定的master分支，如果发现合并有问题，可以很方便的回滚到master的原始的最后一个commit
+  # 而如果使用merge命令，则dev分支中的commit会按照时间顺序插入到master分支中，这样不便于分支回滚
+  $ git rebase master
+  ```
+
+* 7.关于reset回滚命令
+  ```
+  # 如果加了--hard， 会直接丢弃更改，将文件内容直接回退到对应的commit id时的内容，如果不加--hard，文件内容会保留当前内容，可以对当前内容重新提交(生成新的commit id)
+  # reset操作会保留指定的${commitId}作为最后一个commit, 如果reset的commit id有分支合并的情况，会分如下两种情况：
+  # 1. 如果是rebase操作合并的分支，那么只会丢弃指定commit id之后的变更（因为rebase操作是逐个处理commit，并且形成一条线）
+  # 2. 如果是merge(pull)操作合并的分支，那么可能会丢弃commit id之前的变更(因为merge操作会按照时间顺序插入commit)，
+  #    实际情况是，reset会丢弃非本分支上的所有commit，也就是只报了指定commitId所在分支的之前的提交，另一个分支的提交会全部丢弃
+  $ git reset $commit [--hard]
+  ```
   
 ## 遇到的奇怪问题
 今天在使用git提交的时候，出现下面的错误，不知道是什么原因:
