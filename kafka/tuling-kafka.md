@@ -146,7 +146,7 @@ $ cp config/server.properties config/server-3.properties
 7. auto.commit.interval.ms: 自动提交的时间间隔，默认5000毫秒
 8. max.poll.interval.ms: 如果两次poll操作间隔超过了这个时间，broker就会认为这个consumer处理能力不足，会将其提出消费组，将分区分配给别的consumer消费
 
-**服务端broker通过心跳确认consumer是否故障，poll 长轮询机制拉去消息；如果拉到了直接返回，如果没有拉倒消息，判断时间是否超过timeout配置时间，没有超过时继续拉去**
+**服务端broker通过心跳确认consumer是否故障，poll 长轮询机制拉取消息；如果拉到了直接返回，如果没有拉到消息，判断时间是否超过timeout配置时间，没有超过时继续拉去**
 
 [配置项列表](kafka_configure_item.xlsx)
 
@@ -188,7 +188,7 @@ $ cp config/server.properties config/server-3.properties
 假设一个主题有10个分区，3个消费者：
 1. range：
    * 按分区序号排序，假设n(分区数/消费者数量) = 3, m(分区数%消费者数量) = 1， 那么前m个消费者每个分配n+1个分区，后n-m个消费者每个分配n个分区。
-   * 本示例就是：分区0~3给一个消费者，4~6给一个消费者，7~9给一个消费者
+   * 本示例就是：分区0到3给一个消费者，4到6给一个消费者，7到9给一个消费者
 2. round-robin：轮询分配，分区0、3、6、9给一个消费者，
 3. sticky：
    * 分区的分配尽可能均匀
@@ -197,8 +197,8 @@ $ cp config/server.properties config/server-3.properties
 ## Producer发布消息机制
 1. 写入方式：producer采用push模式将消息发布到broker, 每条消息都被append到partition中，属于顺序写磁盘（顺序写磁盘效率比随机写内存要高，保证kafka吞吐率）。
 2. 消息路由：producer发送消息到broker时，会根据分区算法选择将其存储到哪一个partition，其路由机制为：
-   1. 指定了partition, 则直接些人；
-   2. 为指定partition, 但指定key, 通过对key进行hash选出一个partition.
+   1. 指定了partition, 则直接写入；
+   2. 未指定partition, 但指定key, 通过对key进行hash选出一个partition.
    3. 都未指定，使用轮询选出一个partition
 3. 写入流程：
    1. producer先从zookeeper的"/brokers/.../state"节点找到该partition的leader
