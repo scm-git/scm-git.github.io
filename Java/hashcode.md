@@ -5,7 +5,7 @@
    ```java
    public native int hashCode();
    ```
-   * 网上很多资料说这个返回值是一个内存地址(包括Java的权威书籍：《Java核心技术 卷I 基础知识(原书第10版)》 P170也是这么描述的)，而且由于Java的内存回收机制，会按需移动内存中的对象以腾出内存空间，所有会导致移动之后，内存地址发送变化，从而导致该hashCode()方法(没有被重写)的返回值也会发生变化，如果被hashCode()方法被重写了，可以使用System.identityHashCode(obj)方法来获取原生的hash code.[参见Stack Overflow上的文章](https://stackoverflow.com/questions/1961146/memory-address-of-variables-in-java)
+   * 网上很多资料说这个返回值是一个内存地址(包括Java的权威书籍：《Java核心技术 卷I 基础知识(原书第10版)》 P170也是这么描述的)，而且由于Java的内存回收机制，会按需移动内存中的对象以腾出内存空间，所以对象被移动之后，内存地址会发生变化，从而导致该hashCode()方法(没有被重写)的返回值也会发生变化，如果hashCode()方法被重写了，可以使用System.identityHashCode(obj)方法来获取原生的hash code.[参见Stack Overflow上的文章](https://stackoverflow.com/questions/1961146/memory-address-of-variables-in-java)
    * [Stack Overflow上还有另外一篇文章](https://stackoverflow.com/questions/3796699/will-hashcode-return-a-different-int-due-to-compaction-of-tenure-space)，该文章的说法是：**原始的hash code在对象的整个生命周期是不会改变的**，即使因为GC而被移动过位置，也会保存原来的hash code。而且这边文章对hash code的实现做了粗略的解释，如下：
      
      ```
