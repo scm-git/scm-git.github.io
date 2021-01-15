@@ -21,7 +21,7 @@ $ mvn install:install-file -Dfile=F://jar/bcprov-jdk16-1.45.0.jar -DgroupId=org.
 ```
 
 ### 注意：
-1. DrepositoryId=maven-releases： 为settings的文件中设置的server对应的id，此ID设置了server对应的用户名密码。
+1. -DrepositoryId=maven-releases： 为settings的文件中设置的server对应的id，此ID设置了server对应的用户名密码。
 2. 需要nexus服务器开启redeploy 权限。
 3. settings文件配置server、用户名和密码。
 4. 命令行中 -DrepositoryId 设置为settings文件中server的id名称。上传根据此查找对应的用户名和密码。 
