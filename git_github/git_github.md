@@ -83,7 +83,7 @@ $ sudo apt-get install git
   $ git config --global alias.br branch
   $ git config --global alias.hist 'log --pretty=format:"%h %ad | %s%d [%an]" --graph --date=short'
 
-  # git cherry-pick用法： 选取部分commitId合并
+  # git cherry-pick用法： 选取部分commitId合并; cherry-pick合并会导致commitId变化， 并不是将原commitId合到新的分支上
   $ git cherry-pick commitId 
   $ git cherry-pick commitId1 commitId2 commitId3  # 多个commitId
   $ git cherry-pick commitId1..commitId2  # 从commitId1 到 commitid2的所有连续commit都合并
